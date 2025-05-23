@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>project24</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="kartu"></div>
+    <br />
+    <div class="empatKartu"></div>
+    <br />
+    <button onclick="log()">LOG</button>
+    <br />
+    <br />
+
+    <script src="script.js"></script>
+
+    <div class="Operasi">
+      <div class="OperasiA2ngka">
+        <button onclick="operasiDuaKartu('+')" id="tambah">TAMBAH</button>
+        <button onclick="operasiDuaKartu('-')" id="kurang">KURANG</button>
+        <button onclick="operasiDuaKartu('*')" id="kali">KALI</button>
+        <button onclick="operasiDuaKartu('/')" id="bagi">BAGI</button>
+      </div>
+      <div class="Operasi1Angka">
+        <button onclick="operasiSatuKartu('^')" id="kuadrat">KUADRAT</button>
+        <button onclick="operasiSatuKartu('sqrt')" id="akar">AKAR</button>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="parentMulai">
+      <button onclick="perputaranGame()" id="mulai" disabled="true">
+        ACAK
+      </button>
+    </div>
+    <br />
+    <div class="modifyPemain">
+      <button onclick="triggerPemain(1)" id="tambahPemain2">
+        TAMBAH PEMAIN2
+      </button>
+      <button onclick="triggerPemain(2)" id="tambahPemain3">
+        TAMBAH PEMAIN3
+      </button>
+      <button onclick="triggerPemain(3)" id="tambahPemain4">
+        TAMBAH PEMAIN4
+      </button>
+    </div>
+  </body>
+</html>
