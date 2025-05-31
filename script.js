@@ -3,6 +3,7 @@
 let a = 1;
 //Pembuat Kartu
 let kartuTotal = [];
+let kartuAsTotal = [11, 1];
 for (let angkaKartu = 1; angkaKartu <= 10; angkaKartu++) {
   kartuTotal.push(
     `hati${angkaKartu}`,
@@ -82,6 +83,215 @@ function acakKartu() {
   });
 }
 
+async function buatAs() {
+  await flagAs();
+  await hapusNilaiLamaAs();
+  await domAs();
+  await displayAs();
+  await listenerAs();
+  await disableDOM();
+}
+
+let posisiKartuAs = [false, false, false, false];
+function flagAs() {
+  if (flagEmpatKartu.filter(Boolean).length === 1) {
+    return new Promise((resolve) => {
+      if (!kartuAsDiacak[posisiKartu1]) {
+        return;
+      }
+      if (nilai1 !== 1) {
+        return;
+      }
+      if (posisiKartuAs[posisiKartu1]) {
+        return;
+      }
+      posisiKartuAs[posisiKartu1] = true;
+      document.getElementById("divKartu1").textContent = "Kartu 1:";
+      resolve();
+    });
+  }
+  if (flagEmpatKartu.filter(Boolean).length === 2) {
+    return new Promise((resolve) => {
+      if (!kartuAsDiacak[posisiKartu2]) {
+        return;
+      }
+      if (nilai2 !== 1) {
+        return;
+      }
+      if (posisiKartuAs[posisiKartu2]) {
+        return;
+      }
+      posisiKartuAs[posisiKartu2] = true;
+      document.getElementById("divKartu2").textContent = "Kartu 2:";
+      resolve();
+    });
+  }
+}
+
+let kartuAsDiacak;
+function deteksiKartuAcakAs() {
+  return new Promise((resolve) => {
+    kartuAsDiacak = [false, false, false, false];
+    for (let i = 0; i < 4; i++) {
+      if (empatNilaiKartu[i] === 1) {
+        kartuAsDiacak[i] = true;
+        console.log("kartuas = true");
+      }
+    }
+    resolve();
+  });
+}
+
+function resetFlagAs() {
+  return new Promise((resolve) => {
+    posisiKartuAs = [false, false, false, false];
+    resolve();
+  });
+}
+
+function hapusNilaiLamaAs() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      nilai1 = undefined;
+      kartuPilih1 = undefined;
+      resolve();
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      nilai2 = undefined;
+      kartuPilih2 = undefined;
+      resolve();
+    }
+  });
+}
+
+let parentKartuAs = document.querySelector(".kartuAs");
+let buatDomAs = false;
+let kartuAs, kartuSatu;
+function domAs() {
+  return new Promise((resolve) => {
+    if (buatDomAs) {
+      return resolve();
+    }
+    kartuAs = document.createElement("button");
+    kartuAs.id = "kartuDisplayAs";
+    kartuAs.textContent = `kartu 11`;
+
+    kartuSatu = document.createElement("button");
+    kartuSatu.id = "kartuDisplaySatu";
+    kartuSatu.textContent = "kartu 1";
+
+    resolve();
+  });
+}
+
+function listenerAs() {
+  return new Promise((resolve) => {
+    kartuAs.addEventListener("click", () => buatNilaiAs());
+    kartuSatu.addEventListener("click", () => buatNilaiSatu());
+    resolve();
+  });
+}
+
+function displayAs() {
+  return new Promise((resolve) => {
+    parentKartuAs.appendChild(kartuAs);
+    parentKartuAs.appendChild(kartuSatu);
+    resolve();
+  });
+}
+
+function disableDOM() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      kartuDisplayChild[i].disabled = true;
+    }
+    resolve();
+  });
+}
+
+function enableDOM() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      kartuDisplayChild[i].disabled = false;
+    }
+    resolve();
+  });
+}
+
+async function buatNilaiAs() {
+  await nilaiAs();
+  await enableDOM();
+  await hapusDOMAs();
+  await resetFlagLamaAs();
+}
+
+async function buatNilaiSatu() {
+  await nilaiSatu();
+  await enableDOM();
+  await hapusDOMAs();
+  await resetFlagLamaAs();
+}
+
+function nilaiAs() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      empatNilaiKartu[posisiKartu1] = 11;
+      kartuDisplayChild[posisiKartu1].textContent = "kartu AS";
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      empatNilaiKartu[posisiKartu2] = 11;
+      kartuDisplayChild[posisiKartu2].textContent = "kartu AS";
+    }
+    resolve();
+  });
+}
+
+function nilaiSatu() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      empatNilaiKartu[posisiKartu1] = 1;
+      kartuDisplayChild[posisiKartu1].textContent = "kartu 1";
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      empatNilaiKartu[posisiKartu2] = 1;
+      kartuDisplayChild[posisiKartu2].textContent = "kartu 1";
+    }
+    resolve();
+  });
+}
+
+function resetFlagLamaAs() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      flagEmpatKartu[posisiKartu1] = false;
+      resolve();
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      flagEmpatKartu[posisiKartu2] = false;
+      resolve();
+    }
+  });
+}
+
+function hapusDOMAs() {
+  return new Promise((resolve) => {
+    parentKartuAs.removeChild(kartuAs);
+    parentKartuAs.removeChild(kartuSatu);
+    resolve();
+  });
+}
+function hapusDOMLamaAs() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      kartuDisplay.removeChild(kartuDisplayChild[posisiKartu1]);
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      kartuDisplay.removeChild(kartuDisplayChild[posisiKartu2]);
+    }
+    resolve();
+  });
+}
+
 /*
 Making a  rng
 /////////////
@@ -90,10 +300,10 @@ then, use another variable to set the value to the random number of the array. -
 */
 
 //DOM (ID KARTU = #kartuTotal1, #kartuTotal2, etc)
-for (let pembuatDiv = 0; pembuatDiv <= 39; pembuatDiv++) {
+for (let i = 0; i <= 39; i++) {
   let divKartu = document.createElement("div");
   divKartu.id = "tes";
-  divKartu.textContent = kartuTotal[pembuatDiv];
+  divKartu.textContent = kartuTotal[i];
   let parentKartu = document.querySelector(".kartu");
   //parentKartu.appendChild(divKartu);
 }
@@ -122,10 +332,10 @@ function kartuDOM() {
 const empatNilaiKartu = [];
 function konversiKartu() {
   return new Promise((resolve) => {
-    for (let indexNomor = 0; indexNomor < 4; indexNomor++) {
-      for (let pencariNilai = 1; pencariNilai <= 10; pencariNilai++)
-        if (empatKartu[indexNomor].includes(`${pencariNilai}`)) {
-          empatNilaiKartu[indexNomor] = pencariNilai;
+    for (let i = 0; i < 4; i++) {
+      for (let j = 1; j <= 10; j++)
+        if (empatKartu[i].includes(`${j}`)) {
+          empatNilaiKartu[i] = j;
         }
     }
     resolve();
@@ -139,8 +349,7 @@ let totalTrue;
 // Variables for determining 2 cards to operate with
 let nilai1, nilai2;
 let kartuPilih1, kartuPilih2;
-let duaNilaiKartu = [nilai1, nilai2];
-let duaKartuPilih = [kartuPilih1, kartuPilih2];
+let posisiKartu1, posisiKartu2;
 
 //Function to determine 2 cards to operate with
 function toggleEmpatKartu(flagKartuX) {
@@ -148,6 +357,7 @@ function toggleEmpatKartu(flagKartuX) {
     nonaktifKartu(flagKartuX);
   } else if (!flagEmpatKartu[flagKartuX]) {
     aktifKartu(flagKartuX);
+    buatAs();
   }
   totalTrue = flagEmpatKartu.filter(Boolean).length;
 }
@@ -157,12 +367,14 @@ function nonaktifKartu(flagKartuX) {
   if (flagEmpatKartu[flagKartuX]) {
     if (totalTrue === 1) {
       flagEmpatKartu[flagKartuX] = false;
-      nilai1 = null;
+      nilai1 = undefined;
       kartuPilih1 = null;
+      document.getElementById("divKartu1").textContent = `Kartu 1:`;
     } else if (totalTrue === 2 && nilai2 === empatNilaiKartu[flagKartuX]) {
       flagEmpatKartu[flagKartuX] = false;
-      nilai2 = null;
+      nilai2 = undefined;
       kartuPilih2 = null;
+      document.getElementById("divKartu2").textContent = `Kartu 2:`;
     }
   }
 }
@@ -175,11 +387,15 @@ function aktifKartu(flagKartuX) {
     flagEmpatKartu[flagKartuX] = true;
     nilai1 = empatNilaiKartu[flagKartuX];
     kartuPilih1 = empatKartu[flagKartuX];
+    posisiKartu1 = flagKartuX;
+    document.getElementById("divKartu1").textContent = `Kartu 1: ${nilai1}`;
   }
   if (totalTrue === 1 && !flagEmpatKartu[flagKartuX]) {
     flagEmpatKartu[flagKartuX] = true;
     nilai2 = empatNilaiKartu[flagKartuX];
     kartuPilih2 = empatKartu[flagKartuX];
+    posisiKartu2 = flagKartuX;
+    document.getElementById("divKartu2").textContent = `Kartu 2: ${nilai2}`;
   }
 }
 
@@ -215,12 +431,6 @@ function hapusTombolOperasi(tombolOperasiChild) {
   tombolOperasiParent.removeChild(tombolOperasiChild);
 }
 
-/*
-function hapusTombolOperasi2() {
-  tombolOperasiParent.removeChild(tombolOperasi2Angka);
-}
-*/
-
 function tambahTombolOperasi(tombolOperasiChild) {
   tombolOperasiParent.appendChild(tombolOperasiChild);
 }
@@ -231,7 +441,7 @@ let menang = false;
 let textKartu24 = "kartu 24";
 
 function operasiSatuKartu(operator) {
-  if (nilai2) {
+  if (nilai2 !== undefined) {
     return;
   }
 
@@ -249,7 +459,7 @@ function operasiSatuKartu(operator) {
   setelahKalkulasi();
 }
 function operasiDuaKartu(operator) {
-  if (!nilai2) {
+  if (nilai2 === undefined) {
     return;
   }
 
@@ -273,13 +483,38 @@ function operasiDuaKartu(operator) {
   setelahKalkulasi();
 }
 
+function undo() {
+  undoNilai();
+  undoDOM();
+  setelahKalkulasi();
+}
+
+function undoNilai() {
+  empatNilaiKartu[posisiKartu1] = simpanNilai1;
+  empatNilaiKartu[posisiKartu2] = simpanNilai2;
+}
+
+function undoDOM() {
+  document.getElementById(
+    `kartuDisplay${posisiKartu1 + 1}`
+  ).textContent = `kartu ${simpanNilai1}`;
+  document.getElementById(
+    `kartuDisplay${posisiKartu2 + 1}`
+  ).textContent = `kartu ${simpanNilai2}`;
+}
+
 //Things to do after cards calculation
 function setelahKalkulasi() {
   hasilKartu();
   hapusDOMKartu();
+  backUpNilai();
   hapusNilaiKartu();
+  resetFlagKartu();
   skor();
   buatTombolAcak();
+  document.getElementById("divKartu1").textContent = `Kartu 1:`;
+  document.getElementById("divKartu2").textContent = `Kartu 2:`;
+  indikatorNilai();
 }
 
 //Setting the value of the first card picked in the two cards calculation as the result.
@@ -290,16 +525,23 @@ function hasilKartu() {
     }
 }
 
+let simpanNilai1, simpanNilai2;
+function backUpNilai() {
+  simpanNilai1 = nilai1;
+  simpanNilai2 = nilai2;
+}
+
 //Erasing the value of 2 cards picked
 function hapusNilaiKartu() {
-  duaNilaiKartu = [nilai1, nilai2];
-  duaKartuPilih = [kartuPilih1, kartuPilih2];
+  nilai1 = undefined;
+  nilai2 = undefined;
+  kartuPilih1 = null;
+  kartuPilih2 = null;
+}
+
+function resetFlagKartu() {
   for (let i = 0; i < 4; i++) {
     flagEmpatKartu[i] = false;
-  }
-  for (let i = 0; i < 2; i++) {
-    duaNilaiKartu[i] = null;
-    duaKartuPilih[i] = null;
   }
 }
 
@@ -312,6 +554,7 @@ function hapusDOMKartu() {
       ).textContent = `kartu ${hasil}`;
     }
     if (kartuPilih2 === empatKartu[i]) {
+      console.log("hapuskartu");
       document.getElementById(`kartuDisplay${i + 1}`).textContent = "hello";
       kartuDihapus++;
     }
@@ -439,6 +682,9 @@ function triggerFlagJoker(jokerX) {
     } else {
       nonAktifJoker(jokerX);
     }
+    if (flagJoker.filter(Boolean).length !== flagJoker.length - 1) {
+      return;
+    }
     resolve();
   });
 }
@@ -525,7 +771,6 @@ function matiTombolBuktikan() {
 
 function nyalaTombolBuktikan() {
   return new Promise((resolve) => {
-    console.log("MENAYAL");
     for (let i = 0; i < jumlahPemain; i++) {
       if (flagJoker[i]) {
         arrayTombolBuktikan[i].disabled = false;
@@ -558,7 +803,7 @@ function penentuPemainPembukti(pemainX) {
   return new Promise((resolve) => {
     for (let i = 0; i < flagJoker.length; i++) {
       if (!flagJoker[i]) {
-        pemainKalah = i + 1;
+        pemainKalah = i;
         pemainMenang = pemainX;
       }
     }
@@ -636,6 +881,7 @@ async function mulaiGame() {
   await konversiKartu();
   await empatKartuListener();
   await hapusTombolAcak();
+  await deteksiKartuAcakAs();
 
   game = true;
 }
@@ -651,6 +897,7 @@ async function acakGame() {
     await hapusTombolBuktikan();
     await nyalaTombolJoker();
     await resetFlagJoker();
+    await resetFlagAs();
   } else {
     await hapusEmpatKartu();
     await hasilAkhir();
@@ -669,7 +916,7 @@ function hasilAkhir() {
     pemenang = kartuKalah.indexOf(Math.min(...kartuKalah));
     if (pemenang.length > 1) {
       console.log("seri");
-      return;
+      return resolve();
     }
     console.log(`pemain${pemenang + 1} Menang`);
     resolve();
@@ -677,14 +924,17 @@ function hasilAkhir() {
 }
 
 function log() {
-  console.log(kartuKalah);
-  console.log(flagJoker);
-  appendTombolBuktikan();
+  console.log(pemainKalah, pemainMenang);
 }
 
-//PENGULANGAN GAME
-// 1. SISA 1 KARTU -> BISA DI ACAK LAGI
-// 2. ACAK 4 KARTU
-// 3. DELETE TOMBOL BUKTIKAN
-
-//DOBEL DEKLARASI PEMAIN KALAH
+function log2() {
+  for (let i = 0; i < 4; i++) {
+    kartuDisplayChild[i].disabled = false;
+  }
+}
+function indikatorNilai() {
+  document.getElementById("skor1").textContent = `Skor 1 ${kartuKalah[0]}`;
+  document.getElementById("skor2").textContent = `Skor 2 ${kartuKalah[1]}`;
+  document.getElementById("skor3").textContent = `Skor 3 ${kartuKalah[2]}`;
+  document.getElementById("skor4").textContent = `Skor 4 ${kartuKalah[3]}`;
+}
