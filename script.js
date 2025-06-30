@@ -1,95 +1,153 @@
 //BEFORE THE GAME START
 
+//Tombol Acak
+document
+  .querySelector(".tombolAcak")
+  .addEventListener("click", () => triggerAcak());
+
+function triggerAcak() {
+  if (jumlahPemain === 1) {
+    return;
+  }
+  modifyDomAcak();
+  perputaranGame();
+}
+
+function modifyDomAcak() {
+  document.querySelector(".outGame").classList.add("inactive");
+  document.querySelector(".inGame").classList.remove("inactive");
+}
+
+//Tombol Tambah
+const tambah3 = document.querySelector(".tambahKananAtas");
+const tambah2 = document.querySelector(".tambahKananBawah");
+const tambah4 = document.querySelector(".tambahKiriAtas");
+let tombolTambah = [tambah2, tambah3, tambah4];
+const parentTambah = document.querySelector(".tombolTambah");
+
+tambah2.addEventListener("click", () => triggerPemain(1));
+tambah3.addEventListener("click", () => triggerPemain(2));
+tambah4.addEventListener("click", () => triggerPemain(3));
+
+const joker1 = document.querySelector(".jokerKiriBawah");
+const joker2 = document.querySelector(".jokerKananBawah");
+const joker3 = document.querySelector(".jokerKananAtas");
+const joker4 = document.querySelector(".jokerKiriAtas");
+let kartuJoker = [true, false, false, false];
+let flagPemain = [true, false, false, false];
+let parentJoker = [joker1, joker2, joker3, joker4];
+joker2.addEventListener("click", () => triggerPemain(1));
+joker3.addEventListener("click", () => triggerPemain(2));
+joker4.addEventListener("click", () => triggerPemain(3));
+
 let a = 1;
 //Pembuat Kartu
 let kartuTotal = [];
 let kartuAsTotal = [11, 1];
-for (let angkaKartu = 1; angkaKartu <= 10; angkaKartu++) {
-  kartuTotal.push(
-    `hati${angkaKartu}`,
-    `ketupat${angkaKartu}`,
-    `sekop${angkaKartu}`,
-    `keriting${angkaKartu}`
-  );
-} // jika angka kartu satu, maka akan membuat variabel jenis kartu baru sampai kartu ke 10
+function buatKartu() {
+  return new Promise((resolve) => {
+    for (let angkaKartu = 1; angkaKartu <= 10; angkaKartu++) {
+      kartuTotal.push(
+        `hati${angkaKartu}`,
+        `ketupat${angkaKartu}`,
+        `sekop${angkaKartu}`,
+        `keriting${angkaKartu}`
+      );
+    }
+    resolve();
+  });
+}
+// jika angka kartu satu, maka akan membuat variabel jenis kartu baru sampai kartu ke 10
 
-let kartuJoker = [true, false, false, false];
 let jumlahPemain = 1;
 function triggerPemain(nomorPemain) {
+  if (game) {
+    return;
+  }
   tambahPemain(nomorPemain);
-  triggerTombolAcak();
+  modifyDomTambah(nomorPemain);
 }
 
 function tambahPemain(nomorPemain) {
-  if (kartuJoker[nomorPemain]) {
+  if (flagPemain[nomorPemain]) {
     jumlahPemain--;
+    flagPemain[nomorPemain] = false;
     kartuJoker[nomorPemain] = false;
-    document.querySelector(
-      `#tambahPemain${nomorPemain + 1}`
-    ).textContent = `TAMBAH PEMAIN ${nomorPemain + 1}`;
-  } else if (!kartuJoker[nomorPemain]) {
+  } else if (!flagPemain[nomorPemain]) {
     jumlahPemain++;
+    flagPemain[nomorPemain] = true;
     kartuJoker[nomorPemain] = true;
-    document.querySelector(
-      `#tambahPemain${nomorPemain + 1}`
-    ).textContent = `DELETE PEMAIN ${nomorPemain + 1}`;
   }
-} // The players, nothing much new learned.
-
-let childModifyPemainDOM = [];
-let parentModifyPemainDOM;
-//Function to assign variable to add player button DOM
-function assignModifyPemainDOM() {
-  return new Promise((resolve) => {
-    for (let i = 2; i < 5; i++) {
-      childModifyPemainDOM.push(document.getElementById(`tambahPemain${i}`));
-    }
-    parentModifyPemainDOM = document.querySelector(".modifyPemain");
-    resolve();
-  });
 }
 
-//Deleting the adding player DOM
-function hapusModifyPemainDOM() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < 3; i++) {
-      parentModifyPemainDOM.removeChild(childModifyPemainDOM[i]);
-    }
-    resolve();
-  });
+function modifyDomTambah(nomorPemain) {
+  if (flagPemain[nomorPemain]) {
+    parentTambah.removeChild(tombolTambah[nomorPemain - 1]);
+    parentJoker[nomorPemain].classList.remove("inactive");
+  } else if (!flagPemain[nomorPemain]) {
+    parentTambah.appendChild(tombolTambah[nomorPemain - 1]);
+    parentJoker[nomorPemain].classList.add("inactive");
+  }
 }
 
 //STARTING THE GAME
 
 //Pengacak 4 Kartu
+const wrapperKartu1 = document.querySelector(".kartu1");
+const wrapperKartu2 = document.querySelector(".kartu2");
+const wrapperKartu3 = document.querySelector(".kartu3");
+const wrapperKartu4 = document.querySelector(".kartu4");
+const arrayWrapperKartu = [
+  wrapperKartu1,
+  wrapperKartu2,
+  wrapperKartu3,
+  wrapperKartu4,
+];
+
 let kartuDisplayChild = [];
-let kartuDisplay;
+let empatKartu = [];
+let empatNilaiKartu = [];
+let kartuDisplay = document.querySelector(".empatKartu");
+let kartuAcak;
 function acakKartu() {
   return new Promise((resolve) => {
     kartuDisplay = document.querySelector(".empatKartu");
     for (let i = 0; i < 4; i++) {
       let kartuAcakIndex = Math.floor(Math.random() * kartuTotal.length);
-      let kartuAcak = kartuTotal[kartuAcakIndex];
+      kartuAcak = kartuTotal[kartuAcakIndex];
       kartuTotal.splice(kartuAcakIndex, 1);
 
-      kartuDisplayChild[i] = document.createElement("button");
-      kartuDisplayChild[i].disabled = true;
-      kartuDisplayChild[i].textContent = `kartu ${kartuAcak}`;
+      kartuDisplayChild[i] = document.createElement("div");
       kartuDisplayChild[i].id = `kartuDisplay${i + 1}`;
-      kartuDisplay.appendChild(kartuDisplayChild[i]);
-      console.log(kartuAcak);
+      empatKartu[i] = kartuAcak;
+
+      kartuDisplayChild[
+        i
+      ].className = `${kartuAcak} kartu bgKartu kartuUtama mati`;
+      arrayWrapperKartu[i].appendChild(kartuDisplayChild[i]);
     }
     resolve();
   });
 }
 
+function konversiKartu() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 1; j <= 10; j++)
+        if (empatKartu[i].includes(`${j}`)) {
+          empatNilaiKartu[i] = j;
+        }
+    }
+    resolve();
+  });
+} // the use of includes to detect if certain elements consisted inside the value.
+
 async function buatAs() {
   await flagAs();
   await hapusNilaiLamaAs();
   await domAs();
-  await displayAs();
   await listenerAs();
-  await disableDOM();
+  await disableDOMEmpatKartu();
 }
 
 let posisiKartuAs = [false, false, false, false];
@@ -106,7 +164,6 @@ function flagAs() {
         return;
       }
       posisiKartuAs[posisiKartu1] = true;
-      document.getElementById("divKartu1").textContent = "Kartu 1:";
       resolve();
     });
   }
@@ -122,7 +179,6 @@ function flagAs() {
         return;
       }
       posisiKartuAs[posisiKartu2] = true;
-      document.getElementById("divKartu2").textContent = "Kartu 2:";
       resolve();
     });
   }
@@ -135,7 +191,6 @@ function deteksiKartuAcakAs() {
     for (let i = 0; i < 4; i++) {
       if (empatNilaiKartu[i] === 1) {
         kartuAsDiacak[i] = true;
-        console.log("kartuas = true");
       }
     }
     resolve();
@@ -164,46 +219,34 @@ function hapusNilaiLamaAs() {
   });
 }
 
-let parentKartuAs = document.querySelector(".kartuAs");
 let buatDomAs = false;
-let kartuAs, kartuSatu;
+const kartuAsSatu = document.getElementById("kartuAsSatu");
+const kartuAsSebelas = document.getElementById("kartuAsSebelas");
+
 function domAs() {
   return new Promise((resolve) => {
     if (buatDomAs) {
       return resolve();
     }
-    kartuAs = document.createElement("button");
-    kartuAs.id = "kartuDisplayAs";
-    kartuAs.textContent = `kartu 11`;
-
-    kartuSatu = document.createElement("button");
-    kartuSatu.id = "kartuDisplaySatu";
-    kartuSatu.textContent = "kartu 1";
-
+    document.querySelector(".kartuAs").classList.remove("inactive");
     resolve();
   });
 }
 
 function listenerAs() {
   return new Promise((resolve) => {
-    kartuAs.addEventListener("click", () => buatNilaiAs());
-    kartuSatu.addEventListener("click", () => buatNilaiSatu());
+    kartuAsSebelas.addEventListener("click", () => buatNilaiSebelas());
+    kartuAsSatu.addEventListener("click", () => buatNilaiSatu());
     resolve();
   });
 }
 
-function displayAs() {
-  return new Promise((resolve) => {
-    parentKartuAs.appendChild(kartuAs);
-    parentKartuAs.appendChild(kartuSatu);
-    resolve();
-  });
-}
-
-function disableDOM() {
+let pembuatanKartuAs = false;
+function disableDOMEmpatKartu() {
   return new Promise((resolve) => {
     for (let i = 0; i < 4; i++) {
-      kartuDisplayChild[i].disabled = true;
+      kartuDisplayChild[i].classList.add("mati");
+      pembuatanKartuAs = true;
     }
     resolve();
   });
@@ -212,16 +255,17 @@ function disableDOM() {
 function enableDOM() {
   return new Promise((resolve) => {
     for (let i = 0; i < 4; i++) {
-      kartuDisplayChild[i].disabled = false;
+      kartuDisplayChild[i].classList.remove("mati");
     }
     resolve();
   });
 }
 
-async function buatNilaiAs() {
-  await nilaiAs();
+async function buatNilaiSebelas() {
+  await nilaiSebelas();
   await enableDOM();
   await hapusDOMAs();
+  await resetDOMLamaAs();
   await resetFlagLamaAs();
 }
 
@@ -229,18 +273,42 @@ async function buatNilaiSatu() {
   await nilaiSatu();
   await enableDOM();
   await hapusDOMAs();
+  await resetDOMLamaAs();
   await resetFlagLamaAs();
 }
 
-function nilaiAs() {
+function nilaiSebelas() {
   return new Promise((resolve) => {
-    if (flagEmpatKartu.filter(Boolean).length === 1) {
+    if (totalTrue === 1) {
       empatNilaiKartu[posisiKartu1] = 11;
-      kartuDisplayChild[posisiKartu1].textContent = "kartu AS";
+      kartuDisplayChild[posisiKartu1].classList.add("kartuAS");
+      if (kartuDisplayChild[posisiKartu1].className.includes("hati")) {
+        kartuDisplayChild[posisiKartu1].classList.add("hatiAS");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("ketupat")) {
+        kartuDisplayChild[posisiKartu1].classList.add("ketupatAS");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("sekop")) {
+        kartuDisplayChild[posisiKartu1].classList.add("sekopAS");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("keriting")) {
+        kartuDisplayChild[posisiKartu1].classList.add("keritingAS");
+      }
     }
-    if (flagEmpatKartu.filter(Boolean).length === 2) {
+    if (totalTrue === 2) {
       empatNilaiKartu[posisiKartu2] = 11;
-      kartuDisplayChild[posisiKartu2].textContent = "kartu AS";
+      if (kartuDisplayChild[posisiKartu2].className.includes("hati")) {
+        kartuDisplayChild[posisiKartu2].classList.add("hatiAS");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("ketupat")) {
+        kartuDisplayChild[posisiKartu2].classList.add("ketupatAS");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("sekop")) {
+        kartuDisplayChild[posisiKartu2].classList.add("sekopAS");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("keriting")) {
+        kartuDisplayChild[posisiKartu2].classList.add("keritingAS");
+      }
     }
     resolve();
   });
@@ -248,20 +316,46 @@ function nilaiAs() {
 
 function nilaiSatu() {
   return new Promise((resolve) => {
-    if (flagEmpatKartu.filter(Boolean).length === 1) {
+    if (totalTrue === 1) {
       empatNilaiKartu[posisiKartu1] = 1;
-      kartuDisplayChild[posisiKartu1].textContent = "kartu 1";
+
+      if (kartuDisplayChild[posisiKartu1].className.includes("hati")) {
+        kartuDisplayChild[posisiKartu1].classList.add("hatiSatu");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("ketupat")) {
+        kartuDisplayChild[posisiKartu1].classList.add("ketupatSatu");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("sekop")) {
+        kartuDisplayChild[posisiKartu1].classList.add("sekopSatu");
+      }
+      if (kartuDisplayChild[posisiKartu1].className.includes("keriting")) {
+        kartuDisplayChild[posisiKartu1].classList.add("keritingSatu");
+      }
+      resolve();
     }
-    if (flagEmpatKartu.filter(Boolean).length === 2) {
+    if (totalTrue === 2) {
       empatNilaiKartu[posisiKartu2] = 1;
-      kartuDisplayChild[posisiKartu2].textContent = "kartu 1";
+
+      if (kartuDisplayChild[posisiKartu2].className.includes("hati")) {
+        kartuDisplayChild[posisiKartu2].classList.add("hatiSatu");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("ketupat")) {
+        kartuDisplayChild[posisiKartu2].classList.add("ketupatSatu");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("sekop")) {
+        kartuDisplayChild[posisiKartu2].classList.add("sekopSatu");
+      }
+      if (kartuDisplayChild[posisiKartu2].className.includes("keriting")) {
+        kartuDisplayChild[posisiKartu2].classList.add("keritingSatu");
+      }
+      resolve();
     }
-    resolve();
   });
 }
 
 function resetFlagLamaAs() {
   return new Promise((resolve) => {
+    pembuatanKartuAs = false;
     if (flagEmpatKartu.filter(Boolean).length === 1) {
       flagEmpatKartu[posisiKartu1] = false;
       resolve();
@@ -275,23 +369,23 @@ function resetFlagLamaAs() {
 
 function hapusDOMAs() {
   return new Promise((resolve) => {
-    parentKartuAs.removeChild(kartuAs);
-    parentKartuAs.removeChild(kartuSatu);
-    resolve();
-  });
-}
-function hapusDOMLamaAs() {
-  return new Promise((resolve) => {
-    if (flagEmpatKartu.filter(Boolean).length === 1) {
-      kartuDisplay.removeChild(kartuDisplayChild[posisiKartu1]);
-    }
-    if (flagEmpatKartu.filter(Boolean).length === 2) {
-      kartuDisplay.removeChild(kartuDisplayChild[posisiKartu2]);
-    }
+    document.querySelector(".kartuAs").classList.add("inactive");
+
     resolve();
   });
 }
 
+function resetDOMLamaAs() {
+  return new Promise((resolve) => {
+    if (flagEmpatKartu.filter(Boolean).length === 1) {
+      kartuDisplayChild[posisiKartu1].classList.remove("nyala");
+    }
+    if (flagEmpatKartu.filter(Boolean).length === 2) {
+      kartuDisplayChild[posisiKartu2].classList.remove("nyala");
+    }
+    resolve();
+  });
+}
 /*
 Making a  rng
 /////////////
@@ -313,35 +407,6 @@ Append a variable
 let the variable be a create element, .id for adding id, then let a variable be the id of parent element. parent.appendchild(child)
 */
 
-// Assigning 4 mixed cards DOM
-let kartu1, kartu2, kartu3, kartu4;
-const empatKartu = [kartu1, kartu2, kartu3, kartu4];
-function kartuDOM() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < 4; i++) {
-      empatKartu[i] = document.querySelector(
-        `#kartuDisplay${i + 1}`
-      ).textContent;
-    }
-    [kartu1, kartu2, kartu3, kartu4] = empatKartu;
-    resolve();
-  });
-}
-
-//Creating the value for the 4 cards provided.
-const empatNilaiKartu = [];
-function konversiKartu() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < 4; i++) {
-      for (let j = 1; j <= 10; j++)
-        if (empatKartu[i].includes(`${j}`)) {
-          empatNilaiKartu[i] = j;
-        }
-    }
-    resolve();
-  });
-} // the use of includes to detect if certain elements consisted inside the value.
-
 // Creating flags for 4 provided cards
 let flagEmpatKartu = [false, false, false, false];
 let totalTrue;
@@ -353,11 +418,21 @@ let posisiKartu1, posisiKartu2;
 
 //Function to determine 2 cards to operate with
 function toggleEmpatKartu(flagKartuX) {
+  if (pembuatanKartuAs) {
+    return;
+  }
+  if (rondeSelesai) {
+    return;
+  }
+
+  if (empatNilaiKartu[flagKartuX] === 0) {
+    return;
+  }
   if (flagEmpatKartu[flagKartuX]) {
     nonaktifKartu(flagKartuX);
   } else if (!flagEmpatKartu[flagKartuX]) {
     aktifKartu(flagKartuX);
-    buatAs();
+    buatAs(flagKartuX);
   }
   totalTrue = flagEmpatKartu.filter(Boolean).length;
 }
@@ -369,12 +444,15 @@ function nonaktifKartu(flagKartuX) {
       flagEmpatKartu[flagKartuX] = false;
       nilai1 = undefined;
       kartuPilih1 = null;
-      document.getElementById("divKartu1").textContent = `Kartu 1:`;
+      kartuDisplayChild[flagKartuX].classList.remove("nyala");
+      matiTombolOperasi1Angka();
     } else if (totalTrue === 2 && nilai2 === empatNilaiKartu[flagKartuX]) {
       flagEmpatKartu[flagKartuX] = false;
       nilai2 = undefined;
       kartuPilih2 = null;
-      document.getElementById("divKartu2").textContent = `Kartu 2:`;
+      kartuDisplayChild[flagKartuX].classList.remove("nyala");
+      nyalaTombolOperasi1Angka();
+      matiTombolOperasi2Angka();
     }
   }
 }
@@ -388,14 +466,25 @@ function aktifKartu(flagKartuX) {
     nilai1 = empatNilaiKartu[flagKartuX];
     kartuPilih1 = empatKartu[flagKartuX];
     posisiKartu1 = flagKartuX;
-    document.getElementById("divKartu1").textContent = `Kartu 1: ${nilai1}`;
+    kartuDisplayChild[flagKartuX].classList.add("nyala");
+    nyalaTombolOperasi1Angka();
   }
   if (totalTrue === 1 && !flagEmpatKartu[flagKartuX]) {
     flagEmpatKartu[flagKartuX] = true;
     nilai2 = empatNilaiKartu[flagKartuX];
     kartuPilih2 = empatKartu[flagKartuX];
     posisiKartu2 = flagKartuX;
-    document.getElementById("divKartu2").textContent = `Kartu 2: ${nilai2}`;
+    kartuDisplayChild[flagKartuX].classList.add("nyala");
+    matiTombolOperasi1Angka();
+    nyalaTombolOperasi2Angka();
+  }
+}
+
+function nonaktifSemuaKartu() {
+  for (let i = 0; i < 4; i++) {
+    flagEmpatKartu[i] = false;
+    nilai1 = undefined;
+    matiTombolOperasi1Angka();
   }
 }
 
@@ -408,6 +497,33 @@ function empatKartuListener() {
     kartuDisplay4.addEventListener("click", () => toggleEmpatKartu(3));
     resolve();
   });
+}
+
+function empatKartuHighlightListener() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      kartuDisplayChild[i].addEventListener("mouseover", () =>
+        empatKartuHighlightNyala(i)
+      );
+      kartuDisplayChild[i].addEventListener("mouseout", () =>
+        empatKartuHighlightMati(i)
+      );
+    }
+    resolve();
+  });
+}
+
+function empatKartuHighlightNyala(kartuX) {
+  if (nilai2 != undefined) {
+    return;
+  }
+  kartuDisplayChild[kartuX].classList.add("mouseover");
+}
+function empatKartuHighlightMati(kartuX) {
+  if (nilai2 != undefined) {
+    return;
+  }
+  kartuDisplayChild[kartuX].classList.remove("mouseover");
 }
 
 //Variables to operate
@@ -423,8 +539,8 @@ const tombolOperasi = {
 let tombolOperasiParent, tombolOperasi1Angka, tombolOperasi2Angka;
 document.addEventListener("DOMContentLoaded", () => {
   tombolOperasiParent = document.querySelector(".Operasi");
-  tombolOperasi1Angka = document.querySelector(".Operasi1Angka");
-  tombolOperasi2Angka = document.querySelector(".Operasi2Angka");
+  tombolOperasi1Angka = document.querySelector(".operasi1Angka");
+  tombolOperasi2Angka = document.querySelector(".operasi2Angka");
 });
 
 function hapusTombolOperasi(tombolOperasiChild) {
@@ -456,6 +572,7 @@ function operasiSatuKartu(operator) {
       }
       break;
   }
+  nonaktifSemuaKartu();
   setelahKalkulasi();
 }
 function operasiDuaKartu(operator) {
@@ -480,13 +597,18 @@ function operasiDuaKartu(operator) {
       hasil = nilai1 / nilai2;
       break;
   }
+  kartuDihapus++;
   setelahKalkulasi();
 }
 
+let flagUndo;
 function undo() {
+  if (rondeSelesai) {
+    return;
+  }
   undoNilai();
   undoDOM();
-  setelahKalkulasi();
+  setelahUndo();
 }
 
 function undoNilai() {
@@ -495,12 +617,11 @@ function undoNilai() {
 }
 
 function undoDOM() {
-  document.getElementById(
-    `kartuDisplay${posisiKartu1 + 1}`
-  ).textContent = `kartu ${simpanNilai1}`;
-  document.getElementById(
-    `kartuDisplay${posisiKartu2 + 1}`
-  ).textContent = `kartu ${simpanNilai2}`;
+  kartuDisplayChild[posisiKartu2].classList.remove("gelap");
+  for (let i = 0; i < 4; i++) {
+    kartuDisplayChild[i].classList.remove("mouseover");
+  }
+  kartuDihapus--;
 }
 
 //Things to do after cards calculation
@@ -510,11 +631,34 @@ function setelahKalkulasi() {
   backUpNilai();
   hapusNilaiKartu();
   resetFlagKartu();
+  resetHighlight();
+  indikatorKalkulator();
+  nyalaKalkulator();
+  nyalaTombolAcak();
+  nyalaTombolUndo();
+  matiTombolOperasi2Angka();
+  matiTombolOperasi1Angka();
+  matiTombolUndo();
+  matiTombolEmpatKartu();
   skor();
-  buatTombolAcak();
-  document.getElementById("divKartu1").textContent = `Kartu 1:`;
-  document.getElementById("divKartu2").textContent = `Kartu 2:`;
-  indikatorNilai();
+  indikatorSkor();
+}
+
+function setelahUndo() {
+  hasilKartu();
+  hapusDOMKartu();
+  backUpNilai();
+  hapusNilaiKartu();
+  resetFlagKartu();
+  resetHighlight();
+  nyalaTombolAcak();
+  nyalaTombolUndo();
+  matiTombolOperasi2Angka();
+  matiTombolOperasi1Angka();
+  matiTombolUndo();
+  matiTombolEmpatKartu();
+  skor();
+  indikatorSkor();
 }
 
 //Setting the value of the first card picked in the two cards calculation as the result.
@@ -545,18 +689,18 @@ function resetFlagKartu() {
   }
 }
 
+function resetHighlight() {
+  for (let i = 0; i < 4; i++) {
+    kartuDisplayChild[i].classList.remove("nyala");
+  }
+}
+
 //Delete the existing DOM of 4 cards to mixed earlier
 function hapusDOMKartu() {
   for (let i = 0; i < 4; i++) {
-    if (kartuPilih1 === empatKartu[i]) {
-      document.getElementById(
-        `kartuDisplay${i + 1}`
-      ).textContent = `kartu ${hasil}`;
-    }
     if (kartuPilih2 === empatKartu[i]) {
-      console.log("hapuskartu");
-      document.getElementById(`kartuDisplay${i + 1}`).textContent = "hello";
-      kartuDihapus++;
+      kartuDisplayChild[i].classList.add("gelap");
+      empatNilaiKartu[i] = 0;
     }
   }
 }
@@ -564,14 +708,29 @@ function hapusDOMKartu() {
 //Function to give score that will trigger if only 3 cards already deleted.
 //Giving player which demand a proof 4 cards if the proving one succeed
 //and 4 cards to the player who proves if they failed to prove
+const tombolAcakInGame = document.getElementById("tombolAcakInGameID");
+function nyalaTombolAcak() {
+  if (kartuDihapus !== 3) {
+    return;
+  }
+  tombolAcakInGame.classList.remove("mati");
+  tombolAcakInGame.classList.add("highlight");
+}
+function matiTombolAcak() {
+  return new Promise((resolve) => {
+    tombolAcakInGame.classList.add("mati");
+    tombolAcakInGame.classList.remove("highlight");
+    resolve();
+  });
+}
+
+let rondeSelesai = false;
 function skor() {
   if (kartuDihapus !== 3) {
     return;
   }
   for (let i = 1; i <= 4; i++) {
-    if (
-      document.querySelector(`#kartuDisplay${i}`).textContent === textKartu24
-    ) {
+    if (hasil === 24) {
       menang = true;
     }
   }
@@ -581,68 +740,28 @@ function skor() {
     kartuKalah[pemainMenang] = kartuKalah[pemainMenang] + 4;
   }
   menang = false;
-}
-
-let flagJoker = [];
-let tombolJoker;
-//Filling the flag based on how much the player is.
-function buatFlagJoker() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < kartuJoker.filter(Boolean).length; i++) {
-      flagJoker.push(false);
-    }
-    resolve();
-  });
+  kartuDihapus = 0;
+  rondeSelesai = true;
 }
 
 function resetFlagJoker() {
   return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      flagJoker[i] = false;
-      // flagJoker[i + 1] = NaN;
+    for (let i = 0; i < 4; i++) {
+      kartuJoker[i] = false;
     }
     resolve();
   });
 }
 
-//Creating the DOM of activating joker card button
-let arrayJoker = [];
-
-function buatTombolJoker() {
+function resetFlagJokerAwal() {
   return new Promise((resolve) => {
     for (let i = 0; i < 4; i++) {
-      if (kartuJoker[i]) {
-        tombolJoker = document.createElement("button");
-        arrayJoker.push(tombolJoker);
-        tombolJoker.id = `tombolJoker${i + 1}`;
-        tombolJoker.textContent = `TOMBOL JOKER ${i + 1}`;
-        parentModifyPemainDOM.appendChild(tombolJoker);
-        //  document.querySelector(`#tombolJoker${i + 1}`).onclick = () => {toggleJoker(i)} // KINDA BROKEN
+      if (flagPemain[i]) {
+        kartuJoker[i] = true;
       }
-    }
-    resolve();
-  });
-}
-
-function hapusTombolJoker() {
-  for (let i = 0; i < jumlahPemain; i++) {
-    parentModifyPemainDOM.removeChild(arrayJoker[i]);
-  }
-}
-
-function matiTombolJoker() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      arrayJoker[i].disabled = true;
-    }
-    resolve();
-  });
-}
-
-function nyalaTombolJoker() {
-  return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      arrayJoker[i].disabled = false;
+      if (!flagPemain[i]) {
+        kartuJoker[i] = false;
+      }
     }
     resolve();
   });
@@ -651,38 +770,35 @@ function nyalaTombolJoker() {
 //Adding event listener to joker cards
 function jokerListener() {
   return new Promise((resolve) => {
-    if (kartuJoker[1]) {
-      tombolJoker2.addEventListener("click", () => toggleJoker(1));
-    }
-    if (kartuJoker[2]) {
-      tombolJoker3.addEventListener("click", () => toggleJoker(2));
-    }
-    if (kartuJoker[3]) {
-      tombolJoker4.addEventListener("click", () => toggleJoker(3));
-    }
-    tombolJoker1.addEventListener("click", () => toggleJoker(0));
+    joker1.classList.remove("mati");
+    joker1.addEventListener("click", () => toggleJoker(0));
+    joker2.addEventListener("click", () => toggleJoker(1));
+    joker3.addEventListener("click", () => toggleJoker(2));
+    joker4.addEventListener("click", () => toggleJoker(3));
     resolve();
   });
 }
 
 //Function to activates and deactivates joker cards
 async function toggleJoker(jokerX) {
+  if (flagTombolBuktikan) {
+    return;
+  }
+
   await triggerFlagJoker(jokerX);
   await matiTombolJoker();
   await buatTombolBuktikan();
-  await appendTombolBuktikan();
-  await nyalaTombolBuktikan();
   await tombolPembuktiListener();
 }
 
 function triggerFlagJoker(jokerX) {
   return new Promise((resolve) => {
-    if (!flagJoker[jokerX]) {
+    if (!kartuJoker[jokerX]) {
       aktifJoker(jokerX);
     } else {
       nonAktifJoker(jokerX);
     }
-    if (flagJoker.filter(Boolean).length !== flagJoker.length - 1) {
+    if (kartuJoker.filter(Boolean).length !== jumlahPemain - 1) {
       return;
     }
     resolve();
@@ -690,54 +806,66 @@ function triggerFlagJoker(jokerX) {
 }
 
 function aktifJoker(jokerX) {
-  flagJoker[jokerX] = true;
+  kartuJoker[jokerX] = true;
+  parentJoker[jokerX].classList.add("gelap");
 }
 
 function nonAktifJoker(jokerX) {
-  flagJoker[jokerX] = false;
+  kartuJoker[jokerX] = false;
+  parentJoker[jokerX].classList.remove("gelap");
+}
+
+//Creating the DOM of activating joker card button
+let tombolJokerMati = false;
+function matiTombolJoker() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      if (kartuJoker[i]) {
+        parentJoker[i].classList.add("mati");
+      }
+    }
+    tombolJokerMati = true;
+    resolve();
+  });
+}
+
+function nyalaTombolJoker() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      parentJoker[i].classList.remove("mati");
+      parentJoker[i].classList.remove("gelap");
+    }
+    resolve();
+    tombolJokerMati = false;
+  });
 }
 
 let flagTombolBuktikan = false;
-let arrayTombolBuktikan = [];
+
+const buktikan1 = document.getElementById("pembuktiKiriBawah");
+const buktikan2 = document.getElementById("pembuktiKananBawah");
+const buktikan3 = document.getElementById("pembuktiKananAtas");
+const buktikan4 = document.getElementById("pembuktiKiriAtas");
+const arrayTombolBuktikan = [buktikan1, buktikan2, buktikan3, buktikan4];
+
 //Function to choose the player to prove, will trigger if there is one last deactivated joker card left
 function buatTombolBuktikan() {
   return new Promise((resolve) => {
-    if (flagJoker.filter(Boolean).length !== jumlahPemain - 1) {
-      return resolve();
-    }
-    if (flagTombolBuktikan) {
-      return resolve();
-    }
-    for (let i = 0; i < jumlahPemain; i++) {
-      let tombolBuktikan = document.createElement("button");
-      arrayTombolBuktikan.push(tombolBuktikan);
-      tombolBuktikan.id = `tombolBuktikan${i + 1}`;
-      tombolBuktikan.textContent = `TOMBOL BUKTIKAN ${i + 1}`;
+    for (let i = 0; i < 4; i++) {
+      if (kartuJoker[i]) {
+        arrayTombolBuktikan[i].classList.remove("inactive");
+      }
     }
     flagTombolBuktikan = true;
     resolve();
   });
 }
 
-function appendTombolBuktikan() {
-  return new Promise((resolve) => {
-    if (flagJoker.filter(Boolean).length !== jumlahPemain - 1) {
-      return resolve();
-    }
-    for (let i = 0; i < jumlahPemain; i++) {
-      if (flagJoker[i]) {
-        parentModifyPemainDOM.appendChild(arrayTombolBuktikan[i]);
-      }
-    }
-    resolve();
-  });
-}
-
 function hapusTombolBuktikan() {
   return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      if (flagJoker[i]) {
-        parentModifyPemainDOM.removeChild(arrayTombolBuktikan[i]);
+    for (let i = 0; i < 4; i++) {
+      if (kartuJoker[i]) {
+        arrayTombolBuktikan[i].classList.add("inactive");
       }
     }
     resolve();
@@ -747,45 +875,99 @@ function hapusTombolBuktikan() {
 //Adding event listener to the proving button
 function tombolPembuktiListener() {
   return new Promise((resolve) => {
-    for (let j = 0; j < jumlahPemain; j++) {
-      if (flagJoker[j]) {
-        document
-          .querySelector(`#tombolBuktikan${j + 1}`)
-          .addEventListener("click", () => pembuktian(j));
+    for (let j = 0; j < 4; j++) {
+      if (kartuJoker[j]) {
+        arrayTombolBuktikan[j].addEventListener("click", () => pembuktian(j));
       }
     }
     resolve();
   });
 }
 
-function matiTombolBuktikan() {
+function matiTombolBuktikan(pemainX) {
   return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      if (flagJoker[i]) {
-        arrayTombolBuktikan[i].disabled = true;
+    for (let i = 0; i < 4; i++) {
+      arrayTombolBuktikan[i].classList.add("inactive");
+    }
+    arrayTombolBuktikan[pemainX].classList.remove("inactive");
+    arrayTombolBuktikan[pemainX].classList.add("nyala");
+    resolve();
+  });
+}
+
+function resetTombolBuktikan() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      if (kartuJoker[i]) {
+        arrayTombolBuktikan[i].classList.add("inactive");
+        arrayTombolBuktikan[i].classList.remove("nyala");
+        flagTombolBuktikan = false;
       }
     }
     resolve();
   });
 }
 
-function nyalaTombolBuktikan() {
+const tambah = document.querySelector(".tambah");
+const kurang = document.querySelector(".kurang");
+const kali = document.querySelector(".kali");
+const bagi = document.querySelector(".bagi");
+const akar = document.querySelector(".akar");
+const kuadrat = document.querySelector(".kuadrat");
+const arrayOperasi1Angka = [akar, kuadrat];
+const arrayOperasi2Angka = [tambah, kurang, kali, bagi];
+
+function nyalaTombolOperasi1Angka() {
+  for (let i = 0; i < 2; i++) {
+    arrayOperasi1Angka[i].classList.add("highlight");
+    arrayOperasi1Angka[i].classList.remove("mati");
+  }
+}
+
+function nyalaTombolOperasi2Angka() {
+  for (let i = 0; i < 4; i++) {
+    arrayOperasi2Angka[i].classList.add("highlight");
+    arrayOperasi2Angka[i].classList.remove("mati");
+  }
+}
+
+function nyalaTombolUndo() {
+  document.querySelector(".classUndo").classList.add("highlight");
+  document.querySelector(".classUndo").classList.remove("mati");
+}
+
+function matiTombolOperasi1Angka() {
+  for (let i = 0; i < 2; i++) {
+    arrayOperasi1Angka[i].classList.remove("highlight");
+    arrayOperasi1Angka[i].classList.add("mati");
+  }
+}
+
+function matiTombolOperasi2Angka() {
+  for (let i = 0; i < 4; i++) {
+    arrayOperasi2Angka[i].classList.remove("highlight");
+    arrayOperasi2Angka[i].classList.add("mati");
+  }
+}
+
+function matiTombolUndo() {
   return new Promise((resolve) => {
-    for (let i = 0; i < jumlahPemain; i++) {
-      if (flagJoker[i]) {
-        arrayTombolBuktikan[i].disabled = false;
-      }
-    }
+    document.querySelector(".classUndo").classList.remove("highlight");
+    document.querySelector(".classUndo").classList.add("mati");
     resolve();
   });
 }
 
 //Creating the array of the total score, based on how many the players are
-let kartuKalah = [];
+let kartuKalah;
 function buatArrayKartuKalah() {
   return new Promise((resolve) => {
-    for (let i = 0; i < flagJoker.length; i++) {
-      kartuKalah.push(0);
+    kartuKalah = [0, 0, 0, 0];
+    for (let i = 0; i < 4; i++) {
+      if (!flagPemain[i]) {
+        kartuKalah[i] = 999;
+      }
+      kartuKalah;
     }
     resolve();
   });
@@ -795,14 +977,14 @@ let pemainKalah, pemainMenang;
 
 async function pembuktian(pemainX) {
   await nyalaTombolEmpatKartu();
-  await matiTombolBuktikan();
+  await matiTombolBuktikan(pemainX);
   await penentuPemainPembukti(pemainX);
 }
 
 function penentuPemainPembukti(pemainX) {
   return new Promise((resolve) => {
-    for (let i = 0; i < flagJoker.length; i++) {
-      if (!flagJoker[i]) {
+    for (let i = 0; i < 4; i++) {
+      if (!kartuJoker[i]) {
         pemainKalah = i;
         pemainMenang = pemainX;
       }
@@ -814,94 +996,82 @@ function penentuPemainPembukti(pemainX) {
 function nyalaTombolEmpatKartu() {
   return new Promise((resolve) => {
     for (let i = 0; i < 4; i++) {
-      kartuDisplayChild[i].disabled = false;
+      kartuDisplayChild[i].classList.remove("mati");
     }
     resolve();
   });
 }
 
-function tombolPengoperasianEnabled() {
-  document.querySelector("#tambah").disabled = false;
-  document.querySelector("#kurang").disabled = false;
-  document.querySelector("#bagi").disabled = false;
-  document.querySelector("#kali").disabled = false;
+function matiTombolEmpatKartu() {
+  return new Promise((resolve) => {
+    if (kartuDihapus !== 3) {
+      return;
+    }
+    for (let i = 0; i < 4; i++) {
+      kartuDisplayChild[i].classList.add("mati");
+    }
+    resolve();
+  });
 }
 
 function hapusEmpatKartu() {
   return new Promise((resolve) => {
     for (let i = 0; i < 4; i++) {
-      kartuDisplay.removeChild(kartuDisplayChild[i]);
+      arrayWrapperKartu[i].removeChild(kartuDisplayChild[i]);
     }
     resolve();
   });
 }
 
-let domAcak, parentAcak;
-function buatTombolAcak() {
-  if (kartuDihapus === 3) {
-    parentAcak.appendChild(domAcak);
-    kartuDihapus = 0;
-  }
-}
-
-function hapusTombolAcak() {
-  return new Promise((resolve) => {
-    parentAcak.removeChild(domAcak);
-    resolve();
-  });
-}
-
-function triggerTombolAcak() {
-  if (jumlahPemain === 1) {
-    domAcak.disabled = true;
-  } else {
-    domAcak.disabled = false;
-  }
-}
-
-function tombolAcakDeclare() {
-  domAcak = document.getElementById("mulai");
-  parentAcak = document.querySelector(".parentMulai");
-}
-document.addEventListener("DOMContentLoaded", () => {
-  tombolAcakDeclare();
-});
-
 let game = false;
 async function mulaiGame() {
-  console.log(kartuTotal.length);
-  await assignModifyPemainDOM();
-  await hapusModifyPemainDOM();
-  await buatTombolJoker();
   await jokerListener();
-  await buatFlagJoker();
   await buatArrayKartuKalah();
+  await buatKartu();
   await acakKartu();
-  await kartuDOM();
   await konversiKartu();
   await empatKartuListener();
-  await hapusTombolAcak();
+  await empatKartuHighlightListener();
   await deteksiKartuAcakAs();
-
+  await matiTombolAcak();
+  await indikatorCounter();
+  await indikatorSkor();
+  await resetFlagJoker();
   game = true;
 }
 
 async function acakGame() {
-  if (kartuTotal.length !== 4) {
+  if (!rondeSelesai) {
+    return;
+  }
+  if (kartuTotal.length !== 0) {
     await hapusEmpatKartu();
     await acakKartu();
-    await kartuDOM();
     await konversiKartu();
+    await deteksiKartuAcakAs();
     await empatKartuListener();
-    await hapusTombolAcak();
+    await empatKartuHighlightListener();
     await hapusTombolBuktikan();
     await nyalaTombolJoker();
-    await resetFlagJoker();
     await resetFlagAs();
+    await resetTombolBuktikan();
+    await resetFlagJoker();
+    await matiTombolAcak();
+    await indikatorCounter();
   } else {
     await hapusEmpatKartu();
     await hasilAkhir();
+    await hapusDOMInGame();
+    await nyalaDOMAkhir();
+    await indikatorCounterAkhir();
+    await hapusTombolBuktikan();
+    await nyalaTombolJoker();
+    await resetFlagAs();
+    await resetTombolBuktikan();
+    await resetFlagJokerAwal();
+    await matiTombolAcak();
   }
+  rondeSelesai = false;
 }
 
 function perputaranGame() {
@@ -910,31 +1080,154 @@ function perputaranGame() {
   } else acakGame();
 }
 
-let pemenang;
+let pemenang, nilaiKartuKalahTerdikit, kartuKalahTerdikit;
 function hasilAkhir() {
   return new Promise((resolve) => {
-    pemenang = kartuKalah.indexOf(Math.min(...kartuKalah));
-    if (pemenang.length > 1) {
-      console.log("seri");
+    pemenang = 1 + kartuKalah.indexOf(Math.min(...kartuKalah));
+    nilaiKartuKalahTerdikit = Math.min(...kartuKalah);
+    kartuTerdikit = kartuKalah.filter((x) => x === nilaiKartuKalahTerdikit);
+    console.log(kartuTerdikit);
+    game = false;
+    console.log(game);
+    if (kartuTerdikit.length > 1) {
+      document.getElementById("textMenang").textContent = `GAME SERI`;
       return resolve();
     }
-    console.log(`pemain${pemenang + 1} Menang`);
+
+    document.getElementById(
+      "textMenang"
+    ).textContent = `PEMAIN ${pemenang} MENANG`;
+
     resolve();
   });
 }
 
 function log() {
-  console.log(pemainKalah, pemainMenang);
+  console.log(kartuTotal);
 }
 
 function log2() {
-  for (let i = 0; i < 4; i++) {
-    kartuDisplayChild[i].disabled = false;
-  }
+  kartuTotal.splice(0, 36);
 }
-function indikatorNilai() {
-  document.getElementById("skor1").textContent = `Skor 1 ${kartuKalah[0]}`;
-  document.getElementById("skor2").textContent = `Skor 2 ${kartuKalah[1]}`;
-  document.getElementById("skor3").textContent = `Skor 3 ${kartuKalah[2]}`;
-  document.getElementById("skor4").textContent = `Skor 4 ${kartuKalah[3]}`;
+
+const skor1 = document.getElementById("skorKiriBawah");
+const skor2 = document.getElementById("skorKananBawah");
+const skor3 = document.getElementById("skorKananAtas");
+const skor4 = document.getElementById("skorKiriAtas");
+const arrayDOMSkor = [skor1, skor2, skor3, skor4];
+
+function indikatorSkor() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      arrayDOMSkor[i].textContent = kartuKalah[i];
+
+      if (!game) {
+        if (!flagPemain[i]) {
+          console.log(arrayDOMSkor[i]);
+          arrayDOMSkor[i].classList.add("hidden");
+        }
+      }
+    }
+    resolve();
+  });
+}
+
+function resetIndikatorSkor() {
+  return new Promise((resolve) => {
+    for (let i = 0; i < 4; i++) {
+      arrayDOMSkor[i].classList.remove("hidden");
+    }
+    resolve();
+  });
+}
+
+function indikatorCounter() {
+  return new Promise((resolve) => {
+    document.getElementById("textCounter").textContent = kartuTotal.length;
+    resolve();
+  });
+}
+function indikatorCounterAkhir() {
+  return new Promise((resolve) => {
+    document.getElementById("textCounter").textContent = 0;
+    resolve();
+  });
+}
+
+function indikatorKalkulator() {
+  return new Promise((resolve) => {
+    document.querySelector(".textKalkulator").textContent = hasil;
+    resolve();
+  });
+}
+
+const varKalkulator = document.querySelector(".kalkulator");
+let timeoutId;
+function nyalaKalkulator() {
+  return new Promise((resolve) => {
+    clearTimeout(timeoutId);
+    varKalkulator.classList.remove("aktif");
+    void varKalkulator.offsetWidth;
+    varKalkulator.classList.add("aktif");
+    timeoutId = setTimeout(() => {
+      varKalkulator.classList.remove("aktif");
+    }, 3000);
+    resolve();
+  });
+}
+
+function kembali() {
+  nyalaDOMAwal();
+  matiDOMAkhir();
+  matiDOMInGame();
+  resetIndikatorSkor();
+}
+
+function mainLagi() {
+  game = false;
+  rondeSelesai = false;
+  matiDOMAkhir();
+  nyalaDOMInGame();
+  mulaiGame();
+}
+
+function hapusDOMInGame() {
+  return new Promise((resolve) => {
+    document.querySelector(".empatKartu").classList.add("inactive");
+    document.querySelector(".operasi").classList.add("inactive");
+    document.querySelector("#tombolUndo").classList.add("inactive");
+    document.querySelector("#tombolAcakInGame").classList.add("inactive");
+    resolve();
+  });
+}
+
+function nyalaDOMAwal() {
+  document.querySelector(".outGame").classList.remove("inactive");
+}
+
+function matiDOMAkhir() {
+  document.querySelector(".afterGame").classList.add("inactive");
+}
+
+function nyalaDOMAkhir() {
+  return new Promise((resolve) => {
+    document.querySelector(".afterGame").classList.remove("inactive");
+    resolve();
+  });
+}
+
+function matiDOMInGame() {
+  document.querySelector(".inGame").classList.add("inactive");
+  document.querySelector(".empatKartu").classList.remove("inactive");
+  document.querySelector(".operasi").classList.remove("inactive");
+  document.querySelector("#tombolUndo").classList.remove("inactive");
+  document.querySelector("#tombolAcakInGame").classList.remove("inactive");
+}
+
+function nyalaDOMInGame() {
+  document.querySelector(".inGame").classList.remove("inactive");
+  document.querySelector(".empatKartu").classList.remove("inactive");
+  document.querySelector(".operasi").classList.remove("inactive");
+  document.querySelector("#tombolUndo").classList.remove("inactive");
+  document.querySelector("#tombolAcakInGame").classList.remove("inactive");
 }
