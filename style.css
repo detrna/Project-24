@@ -1,12 +1,725 @@
-body {
-  background-color: #181818;
-  color: wheat;
+/*Global*/
+#log1 {
+  position: absolute;
 }
 
+.logaritma {
+  display: none;
+}
+
+:root {
+  --ijo-outline: #529660;
+  --ijo-fill: #529660;
+  --abu-fill: #313d39;
+  background-image: url("img/bg/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  user-select: none;
+  overflow: hidden;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: "Jersey_25", sans-serif;
+}
+
+p {
+  font-family: "Cabin Sketch";
+  font-style: normal;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: rgba(138, 219, 134, 0.75);
+}
+
+.kartu {
+  display: block;
+  width: 7rem;
+  height: auto;
+  box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.kartu.mati {
+  cursor: default !important;
+}
+
+button {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, 50%);
+
+  font-family: "Cabin Sketch";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4rem;
+  line-height: 112px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: rgba(138, 219, 134, 0.75);
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid #000000;
+}
 button:hover {
-  color: rgb(85, 82, 77);
+  color: rgba(154, 245, 149, 0.75);
+  cursor: pointer;
 }
 
-button:active {
-  color: rgb(85, 82, 77);
+/* Menu Awal*/
+
+.tombolTambah img {
+  display: block;
+  height: auto;
+  width: 5.5rem;
+}
+
+.tambahKananAtas,
+.jokerKananAtas {
+  position: absolute;
+  right: 3%;
+  top: 4%;
+}
+
+.tambahKananBawah,
+.jokerKananBawah {
+  position: absolute;
+  right: 3%;
+  bottom: 4%;
+}
+
+.tambahKiriAtas,
+.jokerKiriAtas {
+  position: absolute;
+  left: 3%;
+  top: 4%;
+}
+
+.tombolTambah {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+/* Menu 4 Player */
+
+.judul p1,
+.judul p2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-transform: lowercase;
+  font-family: "Jersey 25";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 7em;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.judul p1 {
+  z-index: 2;
+}
+
+.judul p2 {
+  top: 41%;
+  color: var(--ijo-outline);
+  z-index: 1;
+}
+
+.tombolAcak p {
+  /* ACAK */
+
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, 50%);
+
+  font-family: "Cabin Sketch";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 5rem;
+  line-height: 112px;
+  text-align: center;
+
+  cursor: pointer;
+  color: rgba(138, 219, 134, 0.75);
+}
+
+#textAcak:hover {
+  filter: brightness(120%);
+}
+
+#textAcak.mati:hover {
+  filter: brightness(100%);
+}
+
+#garis {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, 50%) scale(0.7);
+  filter: brightness(100%);
+}
+
+.jokerKiriBawah {
+  position: absolute;
+  left: 3%;
+  bottom: 4%;
+  transform: rotate(9.45deg);
+  box-shadow: -10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.jokerKiriAtas {
+  transform: rotate(-9.45deg) scaleY(-1);
+  box-shadow: -10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.jokerKananAtas {
+  transform: rotate(9.45deg) scaleY(-1);
+  box-shadow: 10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.jokerKananBawah {
+  transform: rotate(-9.45deg);
+  box-shadow: 10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.kartuJoker {
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+/* Menu Awal Interactive*/
+.inactive {
+  display: none !important;
+}
+
+.hidden {
+  opacity: 0 !important;
+}
+
+/* ingame */
+.inGame {
+  height: 0;
+}
+
+/*4 kartu*/
+
+.empatKartu {
+  display: flex;
+  gap: 0.8rem;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+}
+
+.empatKartu img {
+  box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  order: 1;
+}
+
+.kartuPosisi {
+  opacity: 0;
+}
+
+.kartuLayer4 {
+  position: absolute;
+  transform: translate(-30%, -45%);
+  z-index: 1;
+}
+
+.kartuLayer3 {
+  position: absolute;
+  transform: translate(-20%, -30%);
+  z-index: 1;
+}
+
+.kartuLayer2 {
+  position: absolute;
+  transform: translate(-10%, -15%);
+  z-index: 2;
+}
+
+.kartuTumpuk1 {
+  transform: translateX(-10%);
+}
+
+.kartuTumpuk2 {
+  transform: translateX(-15%);
+}
+
+/*Kartu As*/
+.kartuAs {
+  position: absolute;
+  top: 67vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.kartuAs img {
+  width: 3.5rem;
+}
+
+/*Tombol Operasi*/
+
+.operasi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  top: 55vh;
+  transform: translate(-50%, -50%);
+  border-top: 1px solid transparent;
+}
+
+.tombolOperasi {
+  display: block;
+  width: 5.5rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.tombolOperasiSamping {
+  display: block;
+  width: 4.5rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.operasi2Angka,
+.operasi1Angka {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  width: fit-content;
+}
+
+.operasi1Angka {
+  position: absolute;
+  top: 110%;
+}
+
+#operasiKosong {
+  visibility: hidden;
+}
+
+#tombolUndo,
+#tombolAcakInGame {
+  position: absolute;
+}
+
+#tombolUndo {
+  top: 50vh;
+  left: 22%;
+  transform: translateY(-50%);
+}
+
+#tombolAcakInGame {
+  top: 50vh;
+  right: 22%;
+  transform: translateY(-50%);
+}
+
+/* DLL */
+
+.counter img {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  width: 8rem;
+  transform: translate(-50%);
+}
+
+#textCounter {
+  position: absolute;
+  width: 3rem;
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+  top: 0%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%);
+  opacity: 0.7;
+  display: inline-block;
+}
+
+.skorKiri img,
+.skorKanan img {
+  margin: 0;
+  width: 5.5rem;
+  position: absolute;
+  top: 50vh;
+  transform: translateY(-50%);
+}
+
+.skorKanan img {
+  right: 0;
+}
+
+#skorKiriAtas,
+#skorKiriBawah,
+#skorKananAtas,
+#skorKananBawah {
+  margin: 0;
+  width: 3rem;
+  position: absolute;
+  text-align: center;
+  margin-left: 0.5rem;
+  font-size: 3rem;
+  opacity: 0.7;
+  display: inline-block;
+}
+
+#skorKiriAtas,
+#skorKananAtas {
+  top: 40vh;
+}
+
+#skorKiriBawah,
+#skorKananBawah {
+  bottom: 40vh;
+}
+
+#skorKananAtas,
+#skorKananBawah {
+  right: 0;
+  margin-right: 0.5rem;
+}
+
+/*tombol pembukti*/
+.pembukti {
+  display: block;
+  width: 4rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.pembukti.nyala,
+.pembukti.mati {
+  cursor: default !important;
+}
+
+#pembuktiKananAtas {
+  position: absolute;
+  right: 8%;
+  top: 30%;
+}
+
+#pembuktiKananBawah {
+  position: absolute;
+  right: 8%;
+  bottom: 30%;
+}
+
+#pembuktiKiriAtas {
+  position: absolute;
+  left: 8%;
+  top: 30%;
+}
+
+#pembuktiKiriBawah {
+  position: absolute;
+  left: 8%;
+  bottom: 30%;
+}
+
+.pembukti.nyala {
+  filter: brightness(150%);
+}
+
+/*kalkualtor*/
+.kalkulator img {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.kalkulator p {
+  font-size: 2.5rem;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(85%);
+}
+
+.kalkulator {
+  opacity: 0;
+}
+
+.kalkulator.aktif {
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*/ AFTERGAME /*/
+.afterGame {
+  outline: none;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.afterGame p {
+  font-size: 4rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 2rem;
+}
+
+/*properti 52 kartu*/
+.bgKartu {
+  background-size: cover; /* Scales image to cover entire box */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  height: 10rem;
+}
+
+.kartuUtama {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bgKartu.mouseover {
+  outline: 3px solid rgba(1, 228, 160, 0.75);
+  box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.bgKartu.gelap {
+  outline: none !important;
+  cursor: default !important;
+}
+
+.bgKartu.nyala {
+  outline: 3px solid #009e6f;
+  box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+
+.hati1 {
+  background-image: url("img/Export/Cards Resource/Hati As.png");
+}
+.hati2 {
+  background-image: url("img/Export/Cards Resource/Hati 2.png");
+}
+.hati3 {
+  background-image: url("img/Export/Cards Resource/Hati 3.png");
+}
+.hati4 {
+  background-image: url("img/Export/Cards Resource/Hati 4.png");
+}
+.hati5 {
+  background-image: url("img/Export/Cards Resource/Hati 5.png");
+}
+.hati6 {
+  background-image: url("img/Export/Cards Resource/Hati 6.png");
+}
+.hati7 {
+  background-image: url("img/Export/Cards Resource/Hati 7.png");
+}
+.hati8 {
+  background-image: url("img/Export/Cards Resource/Hati 8.png");
+}
+.hati9 {
+  background-image: url("img/Export/Cards Resource/Hati 9.png");
+}
+.hatiAS {
+  background-image: url("img/Export/Cards Resource/Hati 11.png");
+}
+.hatiSatu {
+  background-image: url("img/Export/Cards Resource/Hati 1.png");
+}
+.hati10 {
+  background-image: url("img/Export/Cards Resource/Hati 10.png");
+}
+.ketupat1 {
+  background-image: url("img/Export/Cards Resource/Ketupat As.png");
+}
+.ketupat2 {
+  background-image: url("img/Export/Cards Resource/Ketupat 2.png");
+}
+.ketupat3 {
+  background-image: url("img/Export/Cards Resource/Ketupat 3.png");
+}
+.ketupat4 {
+  background-image: url("img/Export/Cards Resource/Ketupat 4.png");
+}
+.ketupat5 {
+  background-image: url("img/Export/Cards Resource/Ketupat 5.png");
+}
+.ketupat6 {
+  background-image: url("img/Export/Cards Resource/Ketupat 6.png");
+}
+.ketupat7 {
+  background-image: url("img/Export/Cards Resource/Ketupat 7.png");
+}
+.ketupat8 {
+  background-image: url("img/Export/Cards Resource/Ketupat 8.png");
+}
+.ketupat9 {
+  background-image: url("img/Export/Cards Resource/Ketupat 9.png");
+}
+.ketupat10 {
+  background-image: url("img/Export/Cards Resource/Ketupat 10.png");
+}
+.ketupatAS {
+  background-image: url("img/Export/Cards Resource/Ketupat 11.png");
+}
+.ketupatSatu {
+  background-image: url("img/Export/Cards Resource/Ketupat 1.png");
+}
+.sekop1 {
+  background-image: url("img/Export/Cards Resource/Sekop As.png");
+}
+.sekop2 {
+  background-image: url("img/Export/Cards Resource/Sekop 2.png");
+}
+.sekop3 {
+  background-image: url("img/Export/Cards Resource/Sekop 3.png");
+}
+.sekop4 {
+  background-image: url("img/Export/Cards Resource/Sekop 4.png");
+}
+.sekop5 {
+  background-image: url("img/Export/Cards Resource/Sekop 5.png");
+}
+.sekop6 {
+  background-image: url("img/Export/Cards Resource/Sekop 6.png");
+}
+.sekop7 {
+  background-image: url("img/Export/Cards Resource/Sekop 7.png");
+}
+.sekop8 {
+  background-image: url("img/Export/Cards Resource/Sekop 8.png");
+}
+.sekop9 {
+  background-image: url("img/Export/Cards Resource/Sekop 9.png");
+}
+.sekopAS {
+  background-image: url("img/Export/Cards Resource/Sekop 11.png");
+}
+.sekopSatu {
+  background-image: url("img/Export/Cards Resource/Sekop 1.png");
+}
+.sekop10 {
+  background-image: url("img/Export/Cards Resource/Sekop 10.png");
+}
+.keriting1 {
+  background-image: url("img/Export/Cards Resource/Keriting As.png");
+}
+.keriting2 {
+  background-image: url("img/Export/Cards Resource/Keriting 2.png");
+}
+.keriting3 {
+  background-image: url("img/Export/Cards Resource/Keriting 3.png");
+}
+.keriting4 {
+  background-image: url("img/Export/Cards Resource/Keriting 4.png");
+}
+.keriting5 {
+  background-image: url("img/Export/Cards Resource/Keriting 5.png");
+}
+.keriting6 {
+  background-image: url("img/Export/Cards Resource/Keriting 6.png");
+}
+.keriting7 {
+  background-image: url("img/Export/Cards Resource/Keriting 7.png");
+}
+.keriting8 {
+  background-image: url("img/Export/Cards Resource/Keriting 8.png");
+}
+.keriting9 {
+  background-image: url("img/Export/Cards Resource/Keriting 9.png");
+}
+.keritingAS {
+  background-image: url("img/Export/Cards Resource/Keriting 11.png");
+}
+.keritingSatu {
+  background-image: url("img/Export/Cards Resource/Keriting 1.png");
+}
+.keriting10 {
+  background-image: url("img/Export/Cards Resource/Keriting 10.png");
+}
+
+.kartuDisplay {
+  position: absolute;
+}
+
+.containerKartu {
+  position: relative;
+}
+
+/*ingame interactive*/
+
+.mati:hover {
+  outline: none !important;
+  cursor: default !important;
+}
+
+.highlight:hover {
+  filter: brightness(150%);
+  cursor: pointer;
+}
+
+.joker.mati:hover {
+  outline: none !important;
+  cursor: default !important;
+}
+
+.joker.mati * {
+  cursor: default !important;
+}
+
+.gelap {
+  filter: brightness(80%);
 }
