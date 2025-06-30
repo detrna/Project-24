@@ -5,64 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>project24</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Jersey+25&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="kartu"></div>
-    <br />
-    <div class="empatKartu"></div>
-    <br />
-    <div class="kartuAs"></div>
-    <!-- <button onclick="log()">LOG</button>
-    <button onclick="log2()">LOG2</button> -->
-    <br />
-    <br />
+    <div class="wrapper">
+      <div id="log1" class="logaritma">
+        <button onclick="log()">LOG</button>
+      </div>
+      <div class="logaritma">
+        <button onclick="log2()">LOG2</button>
+      </div>
+      <div class="kartuJoker">
+        <div class="jokerKananAtas joker inactive" id="joker3">
+          <img src="img/Export/Cards Resource/Joker Merah.png" class="kartu" />
+        </div>
+        <div class="jokerKananBawah joker inactive" id="joker2">
+          <img src="img/Export/Cards Resource/Joker Hitam.png" class="kartu" />
+        </div>
+        <div class="jokerKiriAtas joker inactive" id="joker4">
+          <img src="img/Export/Cards Resource/Joker Hitam.png" class="kartu" />
+        </div>
+        <div class="jokerKiriBawah joker mati" id="joker1">
+          <img src="img/Export/Cards Resource/Joker Merah.png" class="kartu" />
+        </div>
+      </div>
 
+      <div class="outGame">
+        <div class="tombolTambah">
+          <div class="tambahKananAtas">
+            <img src="img/Export/Menu Awal/tambah.png" />
+          </div>
+          <div class="tambahKananBawah">
+            <img src="img/Export/Menu Awal/tambah.png" />
+          </div>
+          <div class="tambahKiriAtas">
+            <img src="img/Export/Menu Awal/tambah.png" />
+          </div>
+        </div>
+
+        <div class="judul">
+          <p1>Project24</p1>
+          <p2>Project24</p2>
+
+          <div class="tombolAcak">
+            <p id="textAcak" class="mati">
+              ACAK
+              <img src="img/Export/Menu Awal/Line 5.png" id="garis" />
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="inGameId" class="inGame inactive">
+        <div class="empatKartu">
+          <div class="kartu1 containerKartu">
+            <img
+              src="img/Export/UI Mulai/Blank Card.png"
+              class="kartu kartuPosisi"
+            />
+          </div>
+          <div class="kartu2 containerKartu">
+            <img
+              src="img/Export/UI Mulai/Blank Card.png"
+              class="kartu kartuPosisi"
+            />
+          </div>
+          <div class="kartu3 containerKartu">
+            <img
+              src="img/Export/UI Mulai/Blank Card.png"
+              class="kartu kartuPosisi"
+            />
+          </div>
+          <div class="kartu4 containerKartu">
+            <img
+              src="img/Export/UI Mulai/Blank Card.png"
+              class="kartu kartuPosisi"
+            />
+          </div>
+        </div>
+        <div class="operasi">
+          <div class="operasi2Angka">
+            <div onclick="operasiDuaKartu('+')" id="tambah">
+              <img
+                src="img/Export/UI Mulai/Tambah.png"
+                class="tombolOperasi tambah mati"
+              />
+            </div>
+            <div onclick="operasiDuaKartu('-')" id="kurang">
+              <img
+                src="img/Export/UI Mulai/Kurang.png"
+                class="tombolOperasi kurang mati"
+              />
+            </div>
+            <div onclick="operasiDuaKartu('*')" id="kali">
+              <img
+                src="img/Export/UI Mulai/Kali.png"
+                class="tombolOperasi kali mati"
+              />
+            </div>
+            <div onclick="operasiDuaKartu('/')" id="bagi">
+              <img
+                src="img/Export/UI Mulai/Bagi.png"
+                class="tombolOperasi bagi mati"
+              />
+            </div>
+          </div>
+          <div class="operasi1Angka">
+            <div id="operasiKosong">
+              <img
+                src="img/Export/UI Mulai/Kuadrat.png"
+                class="tombolOperasi mati"
+              />
+            </div>
+            <div onclick="operasiSatuKartu('^')" id="kuadrat">
+              <img
+                src="img/Export/UI Mulai/Kuadrat.png"
+                class="tombolOperasi kuadrat mati"
+              />
+            </div>
+            <div onclick="operasiSatuKartu('sqrt')" id="akar">
+              <img
+                src="img/Export/UI Mulai/Akar.png"
+                class="tombolOperasi akar mati"
+              />
+            </div>
+          </div>
+        </div>
+        <div onclick="undo()" class="mati" id="tombolUndo">
+          <img
+            src="img/Export/UI Mulai/Undo.png"
+            class="tombolOperasiSamping classUndo mati"
+          />
+        </div>
+        <div onclick="perputaranGame()" class="mati" id="tombolAcakInGame">
+          <img
+            id="tombolAcakInGameID"
+            src="img/Export/UI Mulai/Acak.png"
+            class="tombolOperasiSamping"
+          />
+        </div>
+        <div class="tombolPembukti">
+          <img
+            src="img/Export/UI Mulai/Pembukti.png"
+            id="pembuktiKiriBawah"
+            class="pembukti highlight inactive"
+          />
+          <img
+            src="img/Export/UI Mulai/Pembukti.png"
+            id="pembuktiKananBawah"
+            class="pembukti highlight inactive"
+          />
+          <img
+            src="img/Export/UI Mulai/Pembukti.png"
+            id="pembuktiKananAtas"
+            class="pembukti highlight inactive"
+          />
+          <img
+            src="img/Export/UI Mulai/Pembukti.png"
+            id="pembuktiKiriAtas"
+            class="pembukti highlight inactive"
+          />
+        </div>
+        <div class="counter">
+          <img src="img/Export/UI Mulai/Counter.png" />
+          <p id="textCounter">40</p>
+        </div>
+        <div class="skorKiri">
+          <img src="img/Export/UI Mulai/Score Kiri.png" />
+          <p id="skorKiriAtas">0</p>
+          <p id="skorKiriBawah">0</p>
+        </div>
+        <div class="skorKanan">
+          <img src="img/Export/UI Mulai/Score Kanan.png" />
+          <p id="skorKananAtas">0</p>
+          <p id="skorKananBawah">0</p>
+        </div>
+        <div class="kartuAs inactive">
+          <img
+            id="kartuAsSatu"
+            class="highlight"
+            src="img/Export/UI Mulai/tombolSatu.png"
+          />
+          <img
+            id="kartuAsSebelas"
+            class="highlight"
+            src="img/Export/UI Mulai/tombolSebelas.png"
+          />
+        </div>
+        <div class="kalkulator fadeIn">
+          <p class="textKalkulator">0</p>
+          <img src="img/Export/UI Mulai/kalkulator1.png" />
+        </div>
+      </div>
+      <div class="afterGame inactive">
+        <div><p id="textMenang">MENANG</p></div>
+        <div onclick="mainLagi()" class="textMainLagi highlight">
+          <p>MAIN LAGI</p>
+        </div>
+        <div onclick="kembali()" class="textKembali highlight">
+          <p>KEMBALI</p>
+        </div>
+      </div>
+    </div>
     <script src="script.js"></script>
-
-    <div class="Operasi">
-      <div class="OperasiA2ngka">
-        <button onclick="operasiDuaKartu('+')" id="tambah">TAMBAH</button>
-        <button onclick="operasiDuaKartu('-')" id="kurang">KURANG</button>
-        <button onclick="operasiDuaKartu('*')" id="kali">KALI</button>
-        <button onclick="operasiDuaKartu('/')" id="bagi">BAGI</button>
-      </div>
-      <div class="Operasi1Angka">
-        <button onclick="operasiSatuKartu('^')" id="kuadrat">KUADRAT</button>
-        <button onclick="operasiSatuKartu('sqrt')" id="akar">AKAR</button>
-      </div>
-      <button onclick="undo()" id="tombolUndo">UNDO</button>
-    </div>
-    <br />
-    <br />
-    <div class="indicator">
-      <div id="divKartu1">Kartu 1:</div>
-      <div id="divKartu2">Kartu 2:</div>
-
-      <br />
-      <div id="skor1">Skor 1:</div>
-      <div id="skor2">Skor 2:</div>
-      <div id="skor3">Skor 3:</div>
-      <div id="skor4">Skor 4:</div>
-    </div>
-    <br />
-    <br />
-    <br />
-    <div class="parentMulai">
-      <button onclick="perputaranGame()" id="mulai" disabled="true">
-        ACAK
-      </button>
-    </div>
-    <br />
-    <div class="modifyPemain">
-      <button onclick="triggerPemain(1)" id="tambahPemain2">
-        TAMBAH PEMAIN2
-      </button>
-      <button onclick="triggerPemain(2)" id="tambahPemain3">
-        TAMBAH PEMAIN3
-      </button>
-      <button onclick="triggerPemain(3)" id="tambahPemain4">
-        TAMBAH PEMAIN4
-      </button>
-    </div>
   </body>
 </html>
