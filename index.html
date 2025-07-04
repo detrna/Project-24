@@ -18,11 +18,9 @@
   </head>
   <body>
     <div class="wrapper">
+      <audio loop src="sounds/nocturne.mp3" id="nocturne"></audio>
       <div id="log1" class="logaritma">
         <button onclick="log()">LOG</button>
-      </div>
-      <div class="logaritma">
-        <button onclick="log2()">LOG2</button>
       </div>
       <div class="kartuJoker">
         <div class="jokerKananAtas joker inactive" id="joker3">
@@ -37,6 +35,17 @@
         <div class="jokerKiriBawah joker mati" id="joker1">
           <img src="img/Export/Cards Resource/Joker Merah.png" class="kartu" />
         </div>
+      </div>
+      <div onclick="fullscreen()" class="peringatan">
+        <img
+          onclick="tutupPeringatan()"
+          src="img/Export/Menu Awal/Peringatan.png"
+          class="highlight"
+        />
+        <p1 id="teksPeringatan"
+          >Gunakan mode layar penuh (Klik Pesan Ini / F11 / Fn + F11) untuk
+          pengalaman bermain maksimal :D</p1
+        >
       </div>
 
       <div class="outGame">
@@ -55,13 +64,89 @@
         <div class="judul">
           <p1>Project24</p1>
           <p2>Project24</p2>
-
-          <div class="tombolAcak">
-            <p id="textAcak" class="mati">
-              ACAK
-              <img src="img/Export/Menu Awal/Line 5.png" id="garis" />
-            </p>
+        </div>
+        <div class="tombolAcak">
+          <p id="textAcak" class="highlight">ACAK</p>
+          <img src="img/Export/Menu Awal/Line 5.png" id="garis" />
+        </div>
+        <div class="menuBawah">
+          <div class="aturan">
+            <p id="tutorial">Tutorial</p>
+            <img
+              onclick="bukaTutorial()"
+              id="imgTutorial"
+              class="highlight"
+              src="img/Export/Menu Awal/Rules.png"
+            />
           </div>
+          <div class="kredit">
+            <p id="kredit">Kredit</p>
+            <img
+              onclick="bukaKredit()"
+              class="highlight"
+              id="imgKredit"
+              src="img/Export/Menu Awal/Credits.png"
+            />
+          </div>
+          <div class="musik">
+            <p id="musik">Musik: Off</p>
+            <img
+              onclick="aturMusik()"
+              id="imgMusik"
+              class="highlight"
+              src="img/Export/Menu Awal/Music.png"
+            />
+          </div>
+          <div class="bahasa">
+            <p id="bahasa">Lang: Indonesia</p>
+            <img
+              onclick="aturBahasa()"
+              id="imgBahasa"
+              class="highlight"
+              src="img/Export/Menu Awal/Terjemahan.png"
+            />
+          </div>
+        </div>
+        <div class="menuTutorial inactive">
+          <div class="dimmer">
+            <img src="img/bg/bg3.jpg" />
+          </div>
+          <div class="gambarTutorial">
+            <img id="gambarTutorial" src="img/Export/Menu Awal/tutor1.jpg" />
+            <div class="teksTutorial">
+              <p1 id="teksTutorial"
+                >Di tengah, empat kartu akan diacak dan dapat dioperasikan
+                dengan ditambah, dikurang, dikali, dst. Kedua kartu yang dipilih
+                akan menghasilkan satu kartu bernilai baru, dan ronde akan
+                selesai setelah hanya tersisa satu kartu. Cari kombinasi yang
+                tepat sampai hasil akhir berupa 24.</p1
+              >
+            </div>
+          </div>
+          <div class="tombolSelanjutnya">
+            <img
+              onclick="tutorialSelanjutnya()"
+              src="img/Export/UI Mulai/Undo.png"
+              class="highlight"
+            />
+          </div>
+          <div onclick="tutupTutorial()" class="tombolKembali">
+            <img src="img/Export/Menu Awal/Back Arrow.png" class="highlight" />
+          </div>
+        </div>
+      </div>
+      <div class="menuKredit inactive">
+        <div class="judulKredit">
+          <p1>Project24</p1>
+          <p3>Project24</p3>
+        </div>
+        <div class="kontributor">
+          <p1>Nocturnal19</p1>
+          <p2>Nocturnal19</p2>
+          <p3>Co-Designer</p3>
+        </div>
+        <div onclick="tutupKredit()" class="tombolKembali">
+          <img src="img/Export/Menu Awal/Back Arrow.png" class="highlight" />
         </div>
       </div>
       <div id="inGameId" class="inGame inactive">
