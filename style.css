@@ -1,12 +1,4 @@
-/*Global*/
-#log1 {
-  position: absolute;
-}
-
-.logaritma {
-  display: none;
-}
-
+/*/ Global /*/
 :root {
   --ijo-outline: #529660;
   --ijo-fill: #529660;
@@ -34,7 +26,11 @@ html {
   font-family: "Jersey_25", sans-serif;
 }
 
-p {
+.logaritma{
+  display:none;
+}
+
+p, .text {
   font-family: "Cabin Sketch";
   font-style: normal;
   text-align: center;
@@ -78,13 +74,61 @@ button {
   height: 100vh;
   border: 1px solid #000000;
 }
+
 button:hover {
   color: rgba(154, 245, 149, 0.75);
   cursor: pointer;
 }
 
-/* Menu Awal*/
+.peringatan{
+display:block;
+box-sizing: border-box;
 
+position: absolute;
+width: 30%;
+height: 20%;
+background: rgba(138, 219, 134, 0.1);
+border: 1px solid rgba(138, 219, 134, 0.5);
+border-radius: 10px;
+bottom: 2vh;
+right: 2vh;
+z-index: 20;
+cursor:pointer;
+opacity: 1;
+transition: opacity 1s;
+}
+
+.peringatan.fade-out{
+  opacity: 0;
+}
+
+.peringatan img {
+  position:absolute;
+  bottom: 0px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.peringatan p1{
+  position:absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-family: "Jersey 25";
+  font-size: 1.2em;
+  color:var(--ijo-fill)
+}
+
+.inactive {
+  display: none !important;
+}
+
+.hidden {
+  opacity: 0 !important;
+}
+
+/*/ Menu Awal /*/
+
+/* Tombol Tambah & Joker */
 .tombolTambah img {
   display: block;
   height: auto;
@@ -116,71 +160,6 @@ button:hover {
   width: auto;
   height: auto;
   cursor: pointer;
-}
-
-/* Menu 4 Player */
-
-.judul p1,
-.judul p2 {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  text-transform: lowercase;
-  font-family: "Jersey 25";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 7em;
-  text-align: center;
-
-  color: #ffffff;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.judul p1 {
-  z-index: 2;
-}
-
-.judul p2 {
-  top: 41%;
-  color: var(--ijo-outline);
-  z-index: 1;
-}
-
-.tombolAcak p {
-  /* ACAK */
-
-  position: absolute;
-  left: 50%;
-  top: 35%;
-  transform: translate(-50%, 50%);
-
-  font-family: "Cabin Sketch";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 5rem;
-  line-height: 112px;
-  text-align: center;
-
-  cursor: pointer;
-  color: rgba(138, 219, 134, 0.75);
-}
-
-#textAcak:hover {
-  filter: brightness(120%);
-}
-
-#textAcak.mati:hover {
-  filter: brightness(100%);
-}
-
-#garis {
-  position: absolute;
-  left: 50%;
-  top: 65%;
-  transform: translate(-50%, 50%) scale(0.7);
-  filter: brightness(100%);
 }
 
 .jokerKiriBawah {
@@ -217,13 +196,223 @@ button:hover {
   height: auto;
 }
 
-/* Menu Awal Interactive*/
-.inactive {
-  display: none !important;
+/* Judul */
+.judul p1,
+.judul p2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-transform: lowercase;
+  font-family: "Jersey 25";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 7em;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.hidden {
-  opacity: 0 !important;
+.judul p1 {
+  z-index: 2;
+}
+
+.judul p2 {
+  top: 41%;
+  color: var(--ijo-outline);
+  z-index: 1;
+}
+
+/* Tombol Acak */
+.tombolAcak {
+  position: absolute;
+  left: 50%;
+  top:45%;
+  transform: translate(-50%, 50%);
+}
+
+#textAcak:hover {
+  filter: brightness(120%);
+}
+
+#textAcak.mati:hover {
+  filter: brightness(100%);
+}
+
+#textAcak {
+    font-family: "Cabin Sketch";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 5rem;
+  text-align: center;
+  color: rgba(138, 219, 134, 0.75);
+  position:relative;
+  top:0px;
+  margin:0px;
+}
+
+#garis{
+  position:relative;
+  left:50%;
+  transform: translate(-50%, -50%) scale(0.7);
+
+}
+
+/* Menu Bawah */
+.menuBawah {
+  position: relative;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+
+  top: 90vh;
+}
+
+.menuBawah img {
+  width: 3rem;
+}
+
+.menuBawah p {
+  position: absolute;
+  text-align: center;
+  width: 5rem;
+  transform: translateX(-20%);
+  bottom: 75%;
+}
+
+#tutorial,
+#kredit,
+#musik,
+#bahasa {
+  opacity: 0%;
+}
+
+.menuBawah .aktif {
+  opacity: 50% !important;
+}
+
+/*Menu Tutorial*/
+.dimmer img {
+  position:absolute;
+  z-index: 9;
+  opacity: 80%;
+  top:0px;
+}
+.gambarTutorial img {
+  position: absolute;
+  width: 40%;
+  z-index: 10;
+  margin: 0;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--ijo-outline);
+}
+
+.teksTutorial {
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  z-index: 10;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.7em;
+font-family: "Jersey 25";
+color:var(--ijo-outline);
+text-align:justify;
+display:inline-block;
+}
+
+.tombolSelanjutnya img, .tombolSebelumnya img{
+  position:absolute;
+  z-index: 15;
+    top: 50%;
+  right: 15%;
+  transform: translate(-50%, -50%) rotate(180deg) scale(0.7);
+}
+
+.tombolKembali img {
+  position: absolute;
+  z-index: 11;
+  width: 10rem;
+  left: 10rem;
+  top: 1rem;
+}
+
+/*Menu Kredit*/
+.judulKredit p1,
+.judulKredit p3 {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-transform: lowercase;
+  font-family: "Jersey 25";
+  font-size: 7em;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.judulKredit p1 {
+  z-index: 2;
+}
+
+.judulKredit p3 {
+  top: 21%;
+  color: var(--ijo-outline);
+  z-index: 1;
+}
+
+.kontributor p1,
+.kontributor p2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+
+  font-family: "Jersey 25";
+  font-size: 5em;
+  text-align: center;
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.kontributor p1 {
+  z-index: 2;
+}
+
+.kontributor p2 {
+  top: 51%;
+  color: var(--ijo-outline);
+  z-index: 1;
+}
+
+.kontributor p3 {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+
+  font-family: "Cabin Sketch";
+  font-style: normal;
+  text-align: center;
+  font-size: 3em;
+  background: transparent;
+  border: none;
+  color: rgba(138, 219, 134, 0.75);
+}
+
+.menuKredit.aktif {
+  display: block !important;
 }
 
 /* ingame */
@@ -232,7 +421,6 @@ button:hover {
 }
 
 /*4 kartu*/
-
 .empatKartu {
   display: flex;
   gap: 0.8rem;
@@ -253,32 +441,6 @@ button:hover {
   opacity: 0;
 }
 
-.kartuLayer4 {
-  position: absolute;
-  transform: translate(-30%, -45%);
-  z-index: 1;
-}
-
-.kartuLayer3 {
-  position: absolute;
-  transform: translate(-20%, -30%);
-  z-index: 1;
-}
-
-.kartuLayer2 {
-  position: absolute;
-  transform: translate(-10%, -15%);
-  z-index: 2;
-}
-
-.kartuTumpuk1 {
-  transform: translateX(-10%);
-}
-
-.kartuTumpuk2 {
-  transform: translateX(-15%);
-}
-
 /*Kartu As*/
 .kartuAs {
   position: absolute;
@@ -293,7 +455,6 @@ button:hover {
 }
 
 /*Tombol Operasi*/
-
 .operasi {
   display: flex;
   flex-direction: column;
@@ -310,7 +471,6 @@ button:hover {
   display: block;
   width: 5.5rem;
   height: auto;
-  cursor: pointer;
 }
 
 .tombolOperasiSamping {
@@ -354,7 +514,7 @@ button:hover {
   transform: translateY(-50%);
 }
 
-/* DLL */
+/* Counter */
 
 .counter img {
   position: absolute;
@@ -377,6 +537,7 @@ button:hover {
   display: inline-block;
 }
 
+/* Skor */
 .skorKiri img,
 .skorKanan img {
   margin: 0;
@@ -420,7 +581,7 @@ button:hover {
   margin-right: 0.5rem;
 }
 
-/*tombol pembukti*/
+/*Tombol Pembukti*/
 .pembukti {
   display: block;
   width: 4rem;
@@ -461,7 +622,7 @@ button:hover {
   filter: brightness(150%);
 }
 
-/*kalkualtor*/
+/*Kalkualtor*/
 .kalkulator img {
   position: absolute;
   top: 35%;
@@ -707,7 +868,7 @@ button:hover {
 }
 
 .highlight:hover {
-  filter: brightness(150%);
+  filter: brightness(125%);
   cursor: pointer;
 }
 
