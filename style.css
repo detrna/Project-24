@@ -81,7 +81,7 @@ button:hover {
 }
 
 .peringatan{
-display:block;
+display:none;
 box-sizing: border-box;
 
 position: absolute;
