@@ -285,7 +285,8 @@ transition: opacity 1s;
 #tutorial,
 #kredit,
 #musik,
-#bahasa {
+#bahasa,
+#f11 {
   opacity: 0%;
 }
 
