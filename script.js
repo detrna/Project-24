@@ -94,6 +94,7 @@ const tutorial = document.querySelector("#tutorial");
 const kredit = document.querySelector("#kredit");
 const musik = document.querySelector("#musik");
 const bahasa = document.querySelector("#bahasa");
+const f11 = document.querySelector("#f11")
 const menuTutorial = document.querySelector(".menuTutorial");
 const menuKredit = document.querySelector(".menuKredit");
 const nocturne = document.getElementById("nocturne");
@@ -101,10 +102,11 @@ const imgTutorial = document.querySelector("#imgTutorial");
 const imgKredit = document.querySelector("#imgKredit");
 const imgMusik = document.querySelector("#imgMusik");
 const imgBahasa = document.querySelector("#imgBahasa");
-const arrayTextMenuBawah = [tutorial, kredit, musik, bahasa];
-const arrayImgMenuBawah = [imgTutorial, imgKredit, imgMusik, imgBahasa];
+const imgF11 = document.querySelector("#imgF11")
+const arrayTextMenuBawah = [tutorial, kredit, musik, bahasa, f11];
+const arrayImgMenuBawah = [imgTutorial, imgKredit, imgMusik, imgBahasa, imgF11];
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 5; i++) {
   arrayImgMenuBawah[i].addEventListener("mouseover", () =>
     aktifTextMenuBawah(arrayTextMenuBawah[i])
   );
@@ -226,6 +228,7 @@ function aturMusik() {
   }
 }
 
+//Bahasa
 let bahasaIndo = true;
 function aturBahasa() {
   if (bahasaIndo) {
@@ -236,6 +239,7 @@ function aturBahasa() {
     document.getElementById("teksPeringatan").textContent =
       "Use fullscreen mode (F11 / Fn + F11) for a max gameplay experience :D";
     kredit.textContent = "Credits";
+    f11.textContent = "Full Screen"
     if (musikNyala) {
       musik.textContent = "Music: On";
     } else {
@@ -248,12 +252,22 @@ function aturBahasa() {
     document.getElementById("teksPeringatan").textContent =
       "Gunakan mode layar penuh (F11 / Fn + F11) untuk pengalaman bermain maksimal :D";
     kredit.textContent = "Kredit";
+    f11.textContent = "Layar Penuh"
     if (musikNyala) {
       musik.textContent = "Musik: On";
     } else {
       musik.textContent = "Musik: Off";
     }
     bahasaIndo = true;
+  }
+}
+
+//F11
+function aturLayarPenuh(){
+  if(document.fullscreenElement){
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen()
   }
 }
 
