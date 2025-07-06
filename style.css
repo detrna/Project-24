@@ -256,7 +256,8 @@ transition: opacity 1s;
 #garis{
   position:relative;
   left:50%;
-  transform: translate(-50%, -50%) scale(0.7);
+  width: 15vw;
+  transform: translate(-50%, -50%);
 
 }
 
@@ -452,7 +453,7 @@ display:inline-block;
 }
 
 .kartuAs img {
-  width: 3.5rem;
+  width: 5vw;
 }
 
 /*Tombol Operasi*/
@@ -476,7 +477,7 @@ display:inline-block;
 
 .tombolOperasiSamping {
   display: block;
-  width: 4.5rem;
+  width: 7vw;
   height: auto;
   cursor: pointer;
 }
@@ -521,13 +522,13 @@ display:inline-block;
   position: absolute;
   top: 0%;
   left: 50%;
-  width: 8rem;
+  width: 10vw;
   transform: translate(-50%);
 }
 
 #textCounter {
   position: absolute;
-  width: 3rem;
+  width: 4vw;
   margin-top: 0.5rem;
   font-size: 1.8rem;
   top: 0%;
@@ -542,7 +543,7 @@ display:inline-block;
 .skorKiri img,
 .skorKanan img {
   margin: 0;
-  width: 5.5rem;
+  width: 6vw;
   position: absolute;
   top: 50vh;
   transform: translateY(-50%);
@@ -557,11 +558,11 @@ display:inline-block;
 #skorKananAtas,
 #skorKananBawah {
   margin: 0;
-  width: 3rem;
+  width: 3vw;
   position: absolute;
   text-align: center;
   margin-left: 0.5rem;
-  font-size: 3rem;
+  font-size: 3.5vw;
   opacity: 0.7;
   display: inline-block;
 }
@@ -585,7 +586,7 @@ display:inline-block;
 /*Tombol Pembukti*/
 .pembukti {
   display: block;
-  width: 4rem;
+  width: 5.5vw;
   height: auto;
   cursor: pointer;
 }
@@ -626,15 +627,16 @@ display:inline-block;
 /*Kalkualtor*/
 .kalkulator img {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 50%;
+  width: 10%;
   transform: translate(-50%, -50%);
 }
 
 .kalkulator p {
-  font-size: 2.5rem;
+  font-size: 3rem;
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
   filter: brightness(85%);
@@ -669,7 +671,7 @@ display:inline-block;
 }
 
 .afterGame p {
-  font-size: 4rem;
+  font-size: 6vw;
   text-transform: uppercase;
   text-align: center;
   margin: 2rem;
