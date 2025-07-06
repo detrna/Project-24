@@ -1472,5 +1472,5 @@ function nyalaDOMInGame() {
 //Adjustifikasi perangkat android
 const isAndroid = /android/i.test(navigator.userAgent);
 if (isAndroid) {
-  document.documentElement.style.fontSize = "8px"
+  document.documentElement.style.fontSize = "2px"
 }
