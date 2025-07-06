@@ -682,7 +682,7 @@ display:inline-block;
   background-size: cover; /* Scales image to cover entire box */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling */
-  height: 10rem;
+  height: 13vw;
 }
 
 .kartuUtama {
