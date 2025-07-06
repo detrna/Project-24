@@ -1468,3 +1468,9 @@ function nyalaDOMInGame() {
   document.querySelector("#tombolUndo").classList.remove("inactive");
   document.querySelector("#tombolAcakInGame").classList.remove("inactive");
 }
+
+//Adjustifikasi perangkat android
+const isAndroid = /android/i.test(navigator.userAgent);
+if (isAndroid) {
+  document.documentElement.style.fontSize = "8px"
+}
