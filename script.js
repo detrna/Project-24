@@ -238,7 +238,7 @@ function aturBahasa() {
     document.getElementById("textAcak").textContent = "SHUFFLE";
 
     document.getElementById("teksPeringatan").textContent =
-      "Use fullscreen mode (F11 / Fn + F11) for a max gameplay experience :D";
+      "Use fullscreen mode (Double Click / F11 / Fn + F11) for a max gameplay experience :D";
     kredit.textContent = "Credits";
     f11.textContent = "Full Screen";
     if (musikNyala) {
@@ -251,7 +251,7 @@ function aturBahasa() {
     bahasa.textContent = "Lang: Indo";
     document.getElementById("textAcak").textContent = "ACAK";
     document.getElementById("teksPeringatan").textContent =
-      "Gunakan mode layar penuh (F11 / Fn + F11) untuk pengalaman bermain maksimal :D";
+      "Gunakan mode layar penuh (Double Click / F11 / Fn + F11) untuk pengalaman bermain maksimal :D";
     kredit.textContent = "Kredit";
     f11.textContent = "Layar Penuh";
     if (musikNyala) {
