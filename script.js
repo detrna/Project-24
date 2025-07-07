@@ -1498,3 +1498,7 @@ function nyalaDOMInGame() {
   document.querySelector("#tombolUndo").classList.remove("inactive");
   document.querySelector("#tombolAcakInGame").classList.remove("inactive");
 }
+
+document.addEventListener("dblclick", function () {
+  aturLayarPenuh()
+});
