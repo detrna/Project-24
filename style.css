@@ -278,8 +278,7 @@ button:hover {
 .menuBawah p {
   position: absolute;
   text-align: center;
-  width: 5vw;
-  transform: translateX(-11%);
+  width: 4vw;
   bottom: 75%;
 }
 
