@@ -46,7 +46,7 @@ p,
   height: auto;
   box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  border-radius: 1.2vw;
+  border-radius: 1.5vw;
 }
 
 .kartu.mati {
@@ -169,25 +169,26 @@ button:hover {
   bottom: 4%;
   transform: rotate(9.45deg);
   box-shadow: -10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 1.5vw;
 }
 
 .jokerKiriAtas {
   transform: rotate(-9.45deg) scaleY(-1);
   box-shadow: -10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  border-radius: 1.5vw;
 }
 
 .jokerKananAtas {
   transform: rotate(9.45deg) scaleY(-1);
   box-shadow: 10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 1.5vw;
 }
 
 .jokerKananBawah {
   transform: rotate(-9.45deg);
   box-shadow: 10px 10px 16.5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 1.5vw;
 }
 
 .kartuJoker {
@@ -449,7 +450,7 @@ button:hover {
   left: 50vw;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  z-index:20
+  z-index: 20;
 }
 
 .kartuAs img {
@@ -562,7 +563,7 @@ button:hover {
   position: absolute;
   text-align: center;
   margin-left: 0.5rem;
-  font-size: 3.5vw;
+  font-size: 3vw;
   opacity: 0.7;
   display: inline-block;
 }
@@ -586,7 +587,7 @@ button:hover {
 /*Tombol Pembukti*/
 .pembukti {
   display: block;
-  width: 5.5vw;
+  width: 5vw;
   height: auto;
   cursor: pointer;
 }
@@ -599,25 +600,25 @@ button:hover {
 #pembuktiKananAtas {
   position: absolute;
   right: 8%;
-  top: 30%;
+  top: 35%;
 }
 
 #pembuktiKananBawah {
   position: absolute;
   right: 8%;
-  bottom: 30%;
+  bottom: 35%;
 }
 
 #pembuktiKiriAtas {
   position: absolute;
   left: 8%;
-  top: 30%;
+  top: 35%;
 }
 
 #pembuktiKiriBawah {
   position: absolute;
   left: 8%;
-  bottom: 30%;
+  bottom: 35%;
 }
 
 .pembukti.nyala {
@@ -636,7 +637,7 @@ button:hover {
 .kalkulator p {
   font-size: 2rem;
   position: absolute;
-  top: 18%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   filter: brightness(85%);
@@ -687,7 +688,7 @@ button:hover {
 
 .kartuUtama.mouseover {
   outline: 3px solid rgba(1, 228, 160, 0.75);
-  border-radius: 20px;
+  border-radius: 1.5vw;
   cursor: pointer;
 }
 
@@ -699,7 +700,7 @@ button:hover {
 .kartuUtama.nyala {
   outline: 3px solid #009e6f;
   box-shadow: 0px 0px 16.5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+  border-radius: 1.5vw;
 }
 
 /*ingame interactive*/
