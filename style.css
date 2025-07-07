@@ -465,7 +465,7 @@ button:hover {
   width: fit-content;
   position: relative;
   left: 50%;
-  top: 50vh;
+  top: 47vh;
   transform: translate(-50%, -50%);
   border-top: 1px solid transparent;
 }
@@ -493,7 +493,7 @@ button:hover {
 
 .operasi1Angka {
   position: absolute;
-  top: 110%;
+  top: 120%;
 }
 
 #operasiKosong {
@@ -529,9 +529,9 @@ button:hover {
 
 #textCounter {
   position: absolute;
-  width: 4vw;
-  margin-top: 0.5rem;
-  font-size: 1.8rem;
+  width: 4rem;
+  margin-top: 0.7vw;
+  font-size: 2.25vw;
   top: 0%;
   left: 50%;
   text-align: center;
@@ -562,7 +562,7 @@ button:hover {
   width: 3vw;
   position: absolute;
   text-align: center;
-  margin-left: 0.5rem;
+  margin-left: 1vw;
   font-size: 3vw;
   opacity: 0.7;
   display: inline-block;
@@ -570,18 +570,18 @@ button:hover {
 
 #skorKiriAtas,
 #skorKananAtas {
-  top: 40vh;
+  top: 42vh;
 }
 
 #skorKiriBawah,
 #skorKananBawah {
-  bottom: 40vh;
+  bottom: 42vh;
 }
 
 #skorKananAtas,
 #skorKananBawah {
   right: 0;
-  margin-right: 0.5rem;
+  margin-right: 1vw;
 }
 
 /*Tombol Pembukti*/
