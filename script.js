@@ -72,6 +72,7 @@ function tutupPeringatan() {
 }
 
 window.onload = function () {
+  document.documentElement.requestFullscreen();
   if (!localStorage.getItem("peringatanFlag")) {
     peringatan.style.display = "block";
     localStorage.setItem("peringatanFlag", "true");
@@ -247,7 +248,7 @@ function aturBahasa() {
     }
     return;
   } else {
-    bahasa.textContent = "Lang: Indonesia";
+    bahasa.textContent = "Lang: Indo";
     document.getElementById("textAcak").textContent = "ACAK";
     document.getElementById("teksPeringatan").textContent =
       "Gunakan mode layar penuh (F11 / Fn + F11) untuk pengalaman bermain maksimal :D";
