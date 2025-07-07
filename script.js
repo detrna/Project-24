@@ -94,7 +94,7 @@ const tutorial = document.querySelector("#tutorial");
 const kredit = document.querySelector("#kredit");
 const musik = document.querySelector("#musik");
 const bahasa = document.querySelector("#bahasa");
-const f11 = document.querySelector("#f11")
+const f11 = document.querySelector("#f11");
 const menuTutorial = document.querySelector(".menuTutorial");
 const menuKredit = document.querySelector(".menuKredit");
 const nocturne = document.getElementById("nocturne");
@@ -102,7 +102,7 @@ const imgTutorial = document.querySelector("#imgTutorial");
 const imgKredit = document.querySelector("#imgKredit");
 const imgMusik = document.querySelector("#imgMusik");
 const imgBahasa = document.querySelector("#imgBahasa");
-const imgF11 = document.querySelector("#imgF11")
+const imgF11 = document.querySelector("#imgF11");
 const arrayTextMenuBawah = [tutorial, kredit, musik, bahasa, f11];
 const arrayImgMenuBawah = [imgTutorial, imgKredit, imgMusik, imgBahasa, imgF11];
 
@@ -239,7 +239,7 @@ function aturBahasa() {
     document.getElementById("teksPeringatan").textContent =
       "Use fullscreen mode (F11 / Fn + F11) for a max gameplay experience :D";
     kredit.textContent = "Credits";
-    f11.textContent = "Full Screen"
+    f11.textContent = "Full Screen";
     if (musikNyala) {
       musik.textContent = "Music: On";
     } else {
@@ -252,7 +252,7 @@ function aturBahasa() {
     document.getElementById("teksPeringatan").textContent =
       "Gunakan mode layar penuh (F11 / Fn + F11) untuk pengalaman bermain maksimal :D";
     kredit.textContent = "Kredit";
-    f11.textContent = "Layar Penuh"
+    f11.textContent = "Layar Penuh";
     if (musikNyala) {
       musik.textContent = "Musik: On";
     } else {
@@ -263,11 +263,11 @@ function aturBahasa() {
 }
 
 //F11
-function aturLayarPenuh(){
-  if(document.fullscreenElement){
+function aturLayarPenuh() {
+  if (document.fullscreenElement) {
     document.exitFullscreen();
   } else {
-    document.documentElement.requestFullscreen()
+    document.documentElement.requestFullscreen();
   }
 }
 
@@ -361,12 +361,12 @@ function acakKartu() {
       let kartuAcakIndex = Math.floor(Math.random() * kartuTotal.length);
       kartuAcak = kartuTotal[kartuAcakIndex];
       kartuTotal.splice(kartuAcakIndex, 1);
-      kartuDisplayChild[i] = document.createElement("div");
+      kartuDisplayChild[i] = document.createElement("img");
       kartuDisplayChild[i].id = `kartuDisplay${i + 1}`;
+      kartuDisplayChild[i].src = `img/Export/Cards Resource/${kartuAcak}.png`;
+      console.log(kartuAcak);
       empatKartu[i] = kartuAcak;
-      kartuDisplayChild[
-        i
-      ].className = `${kartuAcak} kartu bgKartu kartuUtama mati`;
+      kartuDisplayChild[i].className = `${kartuAcak} kartu kartuUtama mati`;
       arrayWrapperKartu[i].appendChild(kartuDisplayChild[i]);
     }
     resolve();
@@ -984,31 +984,47 @@ function nilaiSebelas() {
       empatNilaiKartu[posisiKartu1] = 11;
       kartuDisplayChild[posisiKartu1].classList.add("kartuAS");
       if (kartuDisplayChild[posisiKartu1].className.includes("hati")) {
-        kartuDisplayChild[posisiKartu1].classList.add("hatiAS");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/hatiAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("ketupat")) {
-        kartuDisplayChild[posisiKartu1].classList.add("ketupatAS");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/ketupatAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("sekop")) {
-        kartuDisplayChild[posisiKartu1].classList.add("sekopAS");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/sekopAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("keriting")) {
-        kartuDisplayChild[posisiKartu1].classList.add("keritingAS");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/keritingAs11.png`;
       }
     }
     if (totalTrue === 2) {
       empatNilaiKartu[posisiKartu2] = 11;
       if (kartuDisplayChild[posisiKartu2].className.includes("hati")) {
-        kartuDisplayChild[posisiKartu2].classList.add("hatiAS");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/hatiAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("ketupat")) {
-        kartuDisplayChild[posisiKartu2].classList.add("ketupatAS");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/ketupatAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("sekop")) {
-        kartuDisplayChild[posisiKartu2].classList.add("sekopAS");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/sekopAs11.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("keriting")) {
-        kartuDisplayChild[posisiKartu2].classList.add("keritingAS");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/keritingAs11.png`;
       }
     }
     resolve();
@@ -1019,35 +1035,49 @@ function nilaiSatu() {
   return new Promise((resolve) => {
     if (totalTrue === 1) {
       empatNilaiKartu[posisiKartu1] = 1;
-
       if (kartuDisplayChild[posisiKartu1].className.includes("hati")) {
-        kartuDisplayChild[posisiKartu1].classList.add("hatiSatu");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/hatiAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("ketupat")) {
-        kartuDisplayChild[posisiKartu1].classList.add("ketupatSatu");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/ketupatAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("sekop")) {
-        kartuDisplayChild[posisiKartu1].classList.add("sekopSatu");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/sekopAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu1].className.includes("keriting")) {
-        kartuDisplayChild[posisiKartu1].classList.add("keritingSatu");
+        kartuDisplayChild[
+          posisiKartu1
+        ].src = `img/Export/Cards Resource/keritingAs1.png`;
       }
       resolve();
     }
     if (totalTrue === 2) {
       empatNilaiKartu[posisiKartu2] = 1;
-
       if (kartuDisplayChild[posisiKartu2].className.includes("hati")) {
-        kartuDisplayChild[posisiKartu2].classList.add("hatiSatu");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/hatiAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("ketupat")) {
-        kartuDisplayChild[posisiKartu2].classList.add("ketupatSatu");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/ketupatAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("sekop")) {
-        kartuDisplayChild[posisiKartu2].classList.add("sekopSatu");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/sekopAs1.png`;
       }
       if (kartuDisplayChild[posisiKartu2].className.includes("keriting")) {
-        kartuDisplayChild[posisiKartu2].classList.add("keritingSatu");
+        kartuDisplayChild[
+          posisiKartu2
+        ].src = `img/Export/Cards Resource/keritingAs1.png`;
       }
       resolve();
     }
@@ -1467,10 +1497,4 @@ function nyalaDOMInGame() {
   document.querySelector(".operasi").classList.remove("inactive");
   document.querySelector("#tombolUndo").classList.remove("inactive");
   document.querySelector("#tombolAcakInGame").classList.remove("inactive");
-}
-
-//Adjustifikasi perangkat android
-const isAndroid = /android/i.test(navigator.userAgent);
-if (isAndroid) {
-  document.documentElement.style.fontSize = "2px"
 }
