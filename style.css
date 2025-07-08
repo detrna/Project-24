@@ -84,7 +84,6 @@ button:hover {
 .peringatan {
   display: none;
   box-sizing: border-box;
-
   position: absolute;
   width: 30%;
   height: 20%;
@@ -115,7 +114,7 @@ button:hover {
   margin-top: 10px;
   margin-left: 10px;
   font-family: "Jersey 25";
-  font-size: 1.2em;
+  font-size: 1.5vw;
   color: var(--ijo-fill);
 }
 
@@ -210,7 +209,7 @@ button:hover {
   font-family: "Jersey 25";
   font-style: normal;
   font-weight: 400;
-  font-size: 7em;
+  font-size: 10vw;
   text-align: center;
 
   color: #ffffff;
@@ -247,7 +246,7 @@ button:hover {
   font-family: "Cabin Sketch";
   font-style: normal;
   font-weight: 400;
-  font-size: 5rem;
+  font-size: 6vw;
   text-align: center;
   color: rgba(138, 219, 134, 0.75);
   position: relative;
@@ -321,7 +320,7 @@ button:hover {
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.7em;
+  font-size: 2vw;
   font-family: "Jersey 25";
   color: var(--ijo-outline);
   text-align: justify;
@@ -355,7 +354,7 @@ button:hover {
 
   text-transform: lowercase;
   font-family: "Jersey 25";
-  font-size: 7em;
+  font-size: 10vw;
   text-align: center;
 
   color: #ffffff;
@@ -381,7 +380,7 @@ button:hover {
   width: 100%;
 
   font-family: "Jersey 25";
-  font-size: 5em;
+  font-size: 7vw;
   text-align: center;
 
   color: #ffffff;
@@ -408,7 +407,7 @@ button:hover {
   font-family: "Cabin Sketch";
   font-style: normal;
   text-align: center;
-  font-size: 3em;
+  font-size: 4vw;
   background: transparent;
   border: none;
   color: rgba(138, 219, 134, 0.75);
@@ -426,7 +425,7 @@ button:hover {
 /*4 kartu*/
 .empatKartu {
   display: flex;
-  gap: 0.8rem;
+  gap: 1.2vw;
   width: fit-content;
   position: relative;
   left: 50%;
@@ -529,7 +528,7 @@ button:hover {
 
 #textCounter {
   position: absolute;
-  width: 4rem;
+  width: 5vw;
   margin-top: 0.7vw;
   font-size: 2.25vw;
   top: 0%;
@@ -635,7 +634,7 @@ button:hover {
 }
 
 .kalkulator p {
-  font-size: 2rem;
+  font-size: 2.5vw;
   position: absolute;
   top: 20%;
   left: 50%;
@@ -675,7 +674,7 @@ button:hover {
   font-size: 6vw;
   text-transform: uppercase;
   text-align: center;
-  margin: 2rem;
+  margin: 3vw;
 }
 
 /*properti 52 kartu*/
