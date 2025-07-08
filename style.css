@@ -16,6 +16,10 @@
 *::before {
   box-sizing: border-box;
   outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 body,
