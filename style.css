@@ -265,10 +265,10 @@ button:hover {
 .menuBawah {
   position: relative;
   display: flex;
-  gap: 15px;
+  gap: 1vw;
   justify-content: center;
 
-  top: 90vh;
+  top: 85vh;
 }
 
 .menuBawah img {
