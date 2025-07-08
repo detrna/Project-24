@@ -1501,5 +1501,5 @@ function nyalaDOMInGame() {
 }
 
 document.addEventListener("dblclick", function () {
-  aturLayarPenuh()
+  document.documentElement.requestFullscreen();
 });
