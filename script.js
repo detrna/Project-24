@@ -1503,3 +1503,14 @@ function nyalaDOMInGame() {
 document.addEventListener("dblclick", function () {
   document.documentElement.requestFullscreen();
 });
+
+//Mobile adjustment
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+document.querySelectorAll("*").forEach(el => {
+  el.classList.add("nonaktifHover");
+});
+}
