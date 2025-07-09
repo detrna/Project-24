@@ -30,6 +30,12 @@ html {
   font-family: "Jersey_25", sans-serif;
 }
 
+.nonaktifHover:hover{
+cursor: default;
+outline: none;
+filter:none;
+}
+
 .logaritma {
   display: none;
 }
